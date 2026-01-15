@@ -1,0 +1,21 @@
+{
+  "name": "lifegenie-marketplace",
+  "owner": {
+    "name": "Erik B"
+  },
+  "metadata": {
+    "description": "LifeGenie personal plugin marketplace",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "hello-world",
+      "source": "./plugins/hello-world",
+      "description": "Simple test plugin with a hello command",
+      "version": "1.0.0",
+      "tags": ["test", "starter"],
+      "category": "utilities"
+    }
+  ]
+}
