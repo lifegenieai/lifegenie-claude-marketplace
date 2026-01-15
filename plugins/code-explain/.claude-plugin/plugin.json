@@ -1,0 +1,9 @@
+{
+  "name": "code-explain",
+  "description": "Explain code snippets or files in plain language",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "keywords": ["coding", "explanation", "learning"]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "quick-summary",
+  "description": "Quickly summarize text, documents, or conversations",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "keywords": ["writing", "summary", "text"]
+}
