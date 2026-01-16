@@ -1,0 +1,9 @@
+{
+  "name": "lifegenie-marketplace",
+  "description": "LifeGenie personal plugin marketplace",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "isMarketplace": true
+}
