@@ -1,0 +1,10 @@
+{
+  "name": "thinking-partner",
+  "description": "Collaborative thinking partner for brainstorming and complex problem-solving",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "keywords": ["brainstorming", "thinking", "exploration", "strategy", "problem-solving"],
+  "skills": "./skills/"
+}

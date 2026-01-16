@@ -1,0 +1,11 @@
+{
+  "name": "markdown-optimizer",
+  "description": "Optimize markdown documents for LLM context efficiency",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "keywords": ["markdown", "optimization", "tokens", "context", "efficiency", "LLM"],
+  "skills": "./skills/",
+  "agents": "./agents/"
+}

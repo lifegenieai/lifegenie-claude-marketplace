@@ -1,214 +1,135 @@
-# CLAUDE.md Optimizer Skill
-
-Analyze, score, and optimize CLAUDE.md files using research-backed best
-practices, deterministic analysis, and AI-powered recommendations.
-
-## Workflow Overview
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  Phase 1: Research (Parallel Agents)                                │
-│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                │
-│  │ Anthropic    │ │ Community    │ │ Prompt Eng   │                │
-│  │ Official Docs│ │ Patterns     │ │ Principles   │                │
-│  └──────┬───────┘ └──────┬───────┘ └──────┬───────┘                │
-│         └────────────────┼────────────────┘                         │
-│                          ▼                                          │
-│              Update best-practices.md                               │
-└─────────────────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│  Phase 2: Mechanical Analysis (TypeScript)                          │
-│  • Line count, structure detection                                  │
-│  • Aggressive language pattern matching                             │
-│  • XML tag inventory                                                │
-│  • Section identification                                           │
-│  → Output: JSON metrics (no AI tokens spent)                        │
-└─────────────────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│  Phase 3: AI Scoring & Recommendations                              │
-│  • Interpret metrics against rubric                                 │
-│  • Score subjective criteria (clarity, examples)                    │
-│  • Generate improvement recommendations                             │
-│  • Propose specific changes                                         │
-└─────────────────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│  Phase 4: Implementation (with approval)                            │
-│  • Create module files for extracted content                        │
-│  • Update CLAUDE.md with improvements                               │
-│  • Re-run analysis to verify                                        │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
+---
+name: optimize-claude-md
+description:
+  Optimize, audit, create, and migrate CLAUDE.md files using research-backed
+  best practices. USE WHEN user mentions CLAUDE.md, optimize instructions, audit
+  configuration, create new project config, migrate to Opus 4.5, setup
+  enforcement hooks OR wants to improve Claude Code instruction-following.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Bash
+  - WebSearch
+  - WebFetch
+metadata:
+  author: erikb
+  version: 2.0.0
+  category: development
 ---
 
-## Phase 1: Research Best Practices
+# CLAUDE.md Optimizer
 
-Launch **3 parallel research agents** to gather current best practices. Each
-agent focuses on a different domain to maximize coverage while protecting
-context.
+Comprehensive toolkit for CLAUDE.md file optimization, auditing, creation, and
+enforcement setup.
 
-### Agent 1: Anthropic Official Sources
+## Examples
 
-```
-Search for and summarize:
-- Claude Code CLAUDE.md official documentation
-- Anthropic engineering blog posts about Claude Code
-- Official best practices and recommendations
-- Any recent updates or changes to guidance
-
-Output: Summary of official Anthropic guidance (bullet points)
-```
-
-### Agent 2: Community Patterns & Research
+**Example 1: Audit existing configuration**
 
 ```
-Search for and summarize:
-- GitHub's research on AGENTS.md files (2,500+ repos)
-- Community blog posts about effective CLAUDE.md files
-- Token efficiency patterns and optimizations
-- Anti-patterns and common mistakes
-
-Output: Summary of community learnings (bullet points)
+User: "Audit my CLAUDE.md file"
+-> Asks for file path
+-> Scores against 100-point rubric
+-> Identifies top 3 priority improvements
+-> Provides specific recommendations
 ```
 
-### Agent 3: Claude 4.5 Prompt Engineering
+**Example 2: Create new project config**
 
 ```
-Analyze prompt engineering best practices for Claude 4.5:
-- Aggressive language sensitivity (NEVER, MUST, CRITICAL)
-- "Why" context importance for generalization
-- XML tag structuring
-- Positive vs negative framing
-- Extended thinking considerations
-
-Output: Summary of Claude 4.5 optimization techniques (bullet points)
+User: "Create a CLAUDE.md for my Next.js project"
+-> Asks about tech stack, project structure
+-> Builds optimized file from template
+-> Recommends enforcement setup
 ```
 
-### After Research Completes
+**Example 3: Migrate for Opus 4.5**
 
-1. Read current `references/best-practices.md` from this plugin
-2. **Merge new findings** into the canonical document (don't rebuild)
-3. Flag any **contradictions** with existing guidance
-4. Update the **last-updated date**
-
----
-
-## Phase 2: Mechanical Analysis
-
-Run the TypeScript analyzer to gather metrics deterministically.
-
-**Find the analyzer script in this plugin's scripts directory:**
-
-```bash
-# From the plugin installation directory:
-npx ts-node ./scripts/analyze.ts <path-to-claudemd>
+```
+User: "My CLAUDE.md triggers too aggressively with Opus 4.5"
+-> Identifies aggressive language patterns
+-> Softens ALL CAPS to normal case
+-> Adds over-engineering prevention
 ```
 
-The script outputs JSON with:
+## Essential Principles
 
-- `lineCount`: Total lines
-- `aggressiveLanguage`: Count and locations of
-  NEVER/MUST/CRITICAL/ALWAYS/MANDATORY
-- `xmlTags`: List of XML tags found
-- `sections`: Detected markdown sections
-- `hasBoundariesSection`: Boolean
-- `codeExamples`: Count of code blocks
-- `tables`: Count of markdown tables
-- `links`: External file references
-- `whyContextCount`: Heuristic count of explanatory phrases
+**LLMs Are Stateless**: Claude starts every session with zero codebase
+knowledge. CLAUDE.md is the ONLY file included by default in every conversation.
 
-This costs **zero AI tokens** and produces consistent results.
+**Critical Constraints**: | Constraint | Limit | |------------|-------| |
+Instruction Limit | ~150-200 instructions (LLM reliable following) | | Claude
+Code System | ~50 instructions consumed by harness | | Your Budget | ~100-150
+instructions for CLAUDE.md |
 
----
+**4-Tier Hierarchy** (specific to general):
 
-## Phase 3: AI Scoring & Recommendations
+1. **Project local**: `./CLAUDE.local.md` (gitignored)
+2. **Project shared**: `./CLAUDE.md` (<300 lines)
+3. **User**: `~/.claude/CLAUDE.md` (<60 lines)
+4. **Enterprise**: System-wide policies
 
-With research updated and metrics in hand, score the file:
+**Format Efficiency**: | Format | Efficiency | |--------|-----------| | Code
+examples | 10x prose | | XML tags | 10x + parsing | | Tables | 5x prose | |
+Bullets | 3x prose | | Prose | 1x (avoid) |
 
-### Scoring Process
+## Workflow Routing
 
-1. **Load the rubric** from `references/rubric.md` in this plugin
-2. **Apply mechanical scores** directly from analyzer output:
-   - Length optimization: Based on `lineCount`
-   - Aggressive triggers: Based on `aggressiveLanguage.count`
-   - XML tag usage: Based on `xmlTags.length`
-3. **Apply subjective scores** via AI judgment:
-   - Content clarity and quality
-   - Example effectiveness
-   - Decision guidance usefulness
-4. **Calculate total** and assign star rating
+| Intent                                | Workflow     | File                             |
+| ------------------------------------- | ------------ | -------------------------------- |
+| "audit", "score", "assess", "review"  | **Audit**    | `workflows/audit-claudemd.md`    |
+| "optimize", "improve", "refactor"     | **Optimize** | `workflows/optimize-claudemd.md` |
+| "create", "new", "build from scratch" | **Create**   | `workflows/create-claudemd.md`   |
+| "opus", "4.5", "migrate", "upgrade"   | **Migrate**  | `workflows/migrate-opus.md`      |
+| "enforcement", "hooks", "settings"    | **Setup**    | `workflows/setup-enforcement.md` |
 
-### Recommendation Generation
+## Intake
 
-For each issue found:
+When invoked, ask:
 
-1. Reference the **transformation guide** for language softening
-2. Reference **templates** for missing sections
-3. Propose **specific before/after** changes
-4. Estimate **point improvement**
+> What would you like to do?
+>
+> 1. **Audit** - Score against rubric, identify improvements
+> 2. **Optimize** - Apply best practices to existing file
+> 3. **Create** - Build new CLAUDE.md from scratch
+> 4. **Migrate** - Adjust for Opus 4.5+ behavior
+> 5. **Setup Enforcement** - Configure hooks and settings
 
----
-
-## Phase 4: Implementation
-
-After user approval:
-
-1. **Create module files** if extracting content (e.g., CLI commands)
-2. **Apply transformations** to CLAUDE.md
-3. **Re-run analyzer** to verify improvements
-4. **Show before/after comparison**
-
----
+Route to appropriate workflow based on response.
 
 ## Reference Files
 
-| File                                 | Purpose                                        |
-| ------------------------------------ | ---------------------------------------------- |
-| `references/best-practices.md`       | Canonical best practices (updated by research) |
-| `references/rubric.md`               | 100-point scoring rubric                       |
-| `references/transformation-guide.md` | Language softening patterns                    |
-| `templates/boundaries-section.md`    | Template for Always/Ask/Never section          |
-| `templates/analysis-report.md`       | Output format template                         |
-| `scripts/analyze.ts`                 | Deterministic analysis script                  |
+| File                                    | Purpose                                     |
+| --------------------------------------- | ------------------------------------------- |
+| `references/best-practices.md`          | Canonical best practices (research-updated) |
+| `references/rubric.md`                  | 100-point scoring framework                 |
+| `references/transformation-guide.md`    | Language softening patterns                 |
+| `templates/boundaries-section.md`       | Always/Ask/Never template                   |
+| `templates/audit-report.md`             | Audit output format                         |
+| `templates/project-claudemd-starter.md` | Project template                            |
+| `templates/user-claudemd-starter.md`    | User template                               |
+| `scripts/analyze.ts`                    | Deterministic analysis script               |
 
----
+## Anti-Patterns
 
-## File Discovery
+| Pattern                       | Problem                             |
+| ----------------------------- | ----------------------------------- |
+| Auto-generating CLAUDE.md     | Loses high-leverage manual crafting |
+| Mixing hierarchy levels       | User vs project vs task-specific    |
+| Task-specific in project file | Use progressive disclosure          |
+| Style guides in CLAUDE.md     | Use linters + hooks instead         |
+| Embedded code snippets        | Use `file:line` pointers            |
+| Exceeding instruction budget  | Ruthlessly cut non-essential        |
 
-When no path is provided, search for CLAUDE.md in this order (use first found):
+## Success Criteria
 
-1. `./CLAUDE.md` - Project root (most common)
-2. `./.claude/CLAUDE.md` - Project .claude folder
-3. `~/.claude/CLAUDE.md` - User-level global config
+A well-optimized CLAUDE.md:
 
-If no CLAUDE.md is found in any location, ask the user to specify a path.
-
-**Important:** Always confirm which file you're analyzing before proceeding:
-
-> "Found CLAUDE.md at `./CLAUDE.md` (142 lines). Proceeding with analysis."
-
----
-
-## Usage
-
-```
-/optimize-claude-md                       # Auto-discover and analyze CLAUDE.md
-/optimize-claude-md ./path/to/CLAUDE.md   # Analyze specific file
-/optimize-claude-md --skip-research       # Use cached best practices
-```
-
----
-
-## Key Principles
-
-1. **Compound knowledge** - Research updates canonical doc, doesn't rebuild
-2. **Protect context** - Parallel agents + deterministic code
-3. **Deterministic where possible** - TypeScript for mechanical analysis
-4. **AI for judgment** - Subjective scoring and recommendations
-5. **User approval gates** - No changes without confirmation
+- Scores 75+ on quality rubric (90+ excellent)
+- Uses 80%+ high-efficiency formats
+- Has clear hierarchy separation
+- Implements 2+ enforcement layers
+- Stays within instruction budget
+- Results in fewer clarification questions

@@ -44,10 +44,34 @@
     {
       "name": "optimize-claude-md",
       "source": "./plugins/optimize-claude-md",
-      "description": "Analyze, score, and optimize CLAUDE.md files using research-backed best practices",
-      "version": "1.0.0",
-      "tags": ["claude", "optimization", "scoring", "best-practices"],
+      "description": "Comprehensive CLAUDE.md management: audit, optimize, create, migrate to Opus 4.5+, and setup enforcement",
+      "version": "2.0.0",
+      "tags": ["claude", "optimization", "audit", "scoring", "enforcement", "opus-migration", "hooks", "best-practices"],
       "category": "development"
+    },
+    {
+      "name": "research-synthesizer",
+      "source": "./plugins/research-synthesizer",
+      "description": "Synthesize multiple research reports into a single coherent document",
+      "version": "1.0.0",
+      "tags": ["research", "synthesis", "mindmeld", "reports", "consolidation"],
+      "category": "writing"
+    },
+    {
+      "name": "markdown-optimizer",
+      "source": "./plugins/markdown-optimizer",
+      "description": "Optimize markdown documents for LLM context efficiency",
+      "version": "1.0.0",
+      "tags": ["markdown", "optimization", "tokens", "context", "efficiency"],
+      "category": "utilities"
+    },
+    {
+      "name": "thinking-partner",
+      "source": "./plugins/thinking-partner",
+      "description": "Collaborative thinking partner for brainstorming and complex problem-solving",
+      "version": "1.0.0",
+      "tags": ["brainstorming", "thinking", "exploration", "strategy", "problem-solving"],
+      "category": "creative"
     }
   ]
 }
