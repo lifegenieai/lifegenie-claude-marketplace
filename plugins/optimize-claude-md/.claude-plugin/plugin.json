@@ -1,7 +1,7 @@
 {
   "name": "optimize-claude-md",
   "description": "Comprehensive CLAUDE.md management: audit, optimize, create, migrate to Opus 4.5+, and setup enforcement",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": {
     "name": "Erik B"
   },
@@ -15,5 +15,5 @@
     "hooks",
     "best-practices"
   ],
-  "skills": "./skills/"
+  "commands": "./commands/"
 }

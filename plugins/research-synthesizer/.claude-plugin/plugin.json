@@ -1,11 +1,11 @@
 {
   "name": "research-synthesizer",
   "description": "Synthesize multiple research reports into a single coherent document",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Erik B"
   },
   "keywords": ["research", "synthesis", "mindmeld", "reports", "consolidation"],
-  "skills": "./skills/",
+  "commands": "./commands/",
   "agents": "./agents/"
 }

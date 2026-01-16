@@ -1,8 +1,0 @@
-{
-  "name": "hello-world",
-  "description": "A simple test plugin to verify the marketplace works",
-  "version": "1.0.0",
-  "author": {
-    "name": "Erik B"
-  }
-}
