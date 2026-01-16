@@ -40,6 +40,14 @@
       "version": "1.0.0",
       "tags": ["creative", "ideas", "exploration"],
       "category": "creative"
+    },
+    {
+      "name": "optimize-claude-md",
+      "source": "./plugins/optimize-claude-md",
+      "description": "Analyze, score, and optimize CLAUDE.md files using research-backed best practices",
+      "version": "1.0.0",
+      "tags": ["claude", "optimization", "scoring", "best-practices"],
+      "category": "development"
     }
   ]
 }

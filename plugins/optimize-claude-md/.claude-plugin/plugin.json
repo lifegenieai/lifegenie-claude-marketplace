@@ -1,0 +1,10 @@
+{
+  "name": "optimize-claude-md",
+  "description": "Analyze, score, and optimize CLAUDE.md files using research-backed best practices",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "keywords": ["claude", "optimization", "scoring", "best-practices"],
+  "skills": "./skills/"
+}
