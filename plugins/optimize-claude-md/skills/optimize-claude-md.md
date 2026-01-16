@@ -179,10 +179,26 @@ After user approval:
 
 ---
 
+## File Discovery
+
+When no path is provided, search for CLAUDE.md in this order (use first found):
+
+1. `./CLAUDE.md` - Project root (most common)
+2. `./.claude/CLAUDE.md` - Project .claude folder
+3. `~/.claude/CLAUDE.md` - User-level global config
+
+If no CLAUDE.md is found in any location, ask the user to specify a path.
+
+**Important:** Always confirm which file you're analyzing before proceeding:
+
+> "Found CLAUDE.md at `./CLAUDE.md` (142 lines). Proceeding with analysis."
+
+---
+
 ## Usage
 
 ```
-/optimize-claude-md                       # Analyze project CLAUDE.md
+/optimize-claude-md                       # Auto-discover and analyze CLAUDE.md
 /optimize-claude-md ./path/to/CLAUDE.md   # Analyze specific file
 /optimize-claude-md --skip-research       # Use cached best practices
 ```
