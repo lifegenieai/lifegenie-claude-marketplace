@@ -10,38 +10,6 @@
   },
   "plugins": [
     {
-      "name": "hello-world",
-      "source": "./plugins/hello-world",
-      "description": "Simple test plugin with a hello command",
-      "version": "1.0.0",
-      "tags": ["test", "starter"],
-      "category": "utilities"
-    },
-    {
-      "name": "quick-summary",
-      "source": "./plugins/quick-summary",
-      "description": "Quickly summarize text, documents, or conversations",
-      "version": "1.0.0",
-      "tags": ["writing", "summary", "productivity"],
-      "category": "writing"
-    },
-    {
-      "name": "code-explain",
-      "source": "./plugins/code-explain",
-      "description": "Explain code snippets or files in plain language",
-      "version": "1.0.0",
-      "tags": ["coding", "learning", "explanation"],
-      "category": "coding"
-    },
-    {
-      "name": "ideate",
-      "source": "./plugins/ideate",
-      "description": "Generate creative ideas and explore possibilities",
-      "version": "1.0.0",
-      "tags": ["creative", "ideas", "exploration"],
-      "category": "creative"
-    },
-    {
       "name": "optimize-claude-md",
       "source": "./plugins/optimize-claude-md",
       "description": "Comprehensive CLAUDE.md management: audit, optimize, create, migrate to Opus 4.5+, and setup enforcement",
