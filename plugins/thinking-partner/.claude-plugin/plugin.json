@@ -5,6 +5,5 @@
   "author": {
     "name": "Erik B"
   },
-  "keywords": ["brainstorming", "thinking", "exploration", "strategy", "problem-solving"],
-  "agents": "./agents/"
+  "keywords": ["brainstorming", "thinking", "exploration", "strategy", "problem-solving"]
 }

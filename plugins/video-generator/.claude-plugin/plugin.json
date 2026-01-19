@@ -1,0 +1,9 @@
+{
+  "name": "video-generator",
+  "version": "1.0.0",
+  "description": "Generate videos using Google Veo 3.1 API with presets, extensions, and cost controls",
+  "author": {
+    "name": "erikb"
+  },
+  "keywords": ["video", "veo", "google", "ai", "generation"]
+}

@@ -1,45 +1,65 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "lifegenie-marketplace",
+  "description": "LifeGenie personal plugin marketplace",
   "owner": {
     "name": "Erik B"
-  },
-  "metadata": {
-    "description": "LifeGenie personal plugin marketplace",
-    "version": "1.0.0",
-    "pluginRoot": "./plugins"
   },
   "plugins": [
     {
       "name": "optimize-claude-md",
-      "source": "./plugins/optimize-claude-md",
       "description": "Comprehensive CLAUDE.md management: audit, optimize, create, migrate to Opus 4.5+, and setup enforcement",
       "version": "2.1.0",
-      "tags": ["claude", "optimization", "audit", "scoring", "enforcement", "opus-migration", "hooks", "best-practices"],
-      "category": "development"
+      "author": {
+        "name": "Erik B"
+      },
+      "source": "./plugins/optimize-claude-md",
+      "category": "development",
+      "tags": ["claude", "optimization", "audit", "scoring", "enforcement", "opus-migration", "hooks", "best-practices"]
     },
     {
       "name": "research-synthesizer",
-      "source": "./plugins/research-synthesizer",
       "description": "Synthesize multiple research reports into a single coherent document",
       "version": "1.1.0",
-      "tags": ["research", "synthesis", "mindmeld", "reports", "consolidation"],
-      "category": "writing"
+      "author": {
+        "name": "Erik B"
+      },
+      "source": "./plugins/research-synthesizer",
+      "category": "writing",
+      "tags": ["research", "synthesis", "mindmeld", "reports", "consolidation"]
     },
     {
       "name": "markdown-optimizer",
-      "source": "./plugins/markdown-optimizer",
       "description": "Optimize markdown documents for LLM context efficiency",
       "version": "1.1.0",
-      "tags": ["markdown", "optimization", "tokens", "context", "efficiency"],
-      "category": "utilities"
+      "author": {
+        "name": "Erik B"
+      },
+      "source": "./plugins/markdown-optimizer",
+      "category": "utilities",
+      "tags": ["markdown", "optimization", "tokens", "context", "efficiency"]
     },
     {
       "name": "thinking-partner",
-      "source": "./plugins/thinking-partner",
       "description": "Collaborative thinking partner for brainstorming and complex problem-solving",
       "version": "1.1.0",
-      "tags": ["brainstorming", "thinking", "exploration", "strategy", "problem-solving"],
-      "category": "creative"
+      "author": {
+        "name": "Erik B"
+      },
+      "source": "./plugins/thinking-partner",
+      "category": "creative",
+      "tags": ["brainstorming", "thinking", "exploration", "strategy", "problem-solving"]
+    },
+    {
+      "name": "video-generator",
+      "description": "Generate videos using Google Veo 3.1 API with presets, extensions, and cost controls",
+      "version": "1.0.0",
+      "author": {
+        "name": "Erik B"
+      },
+      "source": "./plugins/video-generator",
+      "category": "creative",
+      "tags": ["video", "veo", "google", "ai", "generation", "media"]
     }
   ]
 }

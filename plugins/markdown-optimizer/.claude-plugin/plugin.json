@@ -5,7 +5,5 @@
   "author": {
     "name": "Erik B"
   },
-  "keywords": ["markdown", "optimization", "tokens", "context", "efficiency", "LLM"],
-  "commands": "./commands/",
-  "agents": "./agents/"
+  "keywords": ["markdown", "optimization", "tokens", "context", "efficiency", "LLM"]
 }

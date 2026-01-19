@@ -5,7 +5,5 @@
   "author": {
     "name": "Erik B"
   },
-  "keywords": ["research", "synthesis", "mindmeld", "reports", "consolidation"],
-  "commands": "./commands/",
-  "agents": "./agents/"
+  "keywords": ["research", "synthesis", "mindmeld", "reports", "consolidation"]
 }
