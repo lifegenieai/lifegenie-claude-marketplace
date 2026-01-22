@@ -1,0 +1,9 @@
+{
+  "name": "doc-sync",
+  "description": "Automatically update documentation based on git commit history",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "keywords": ["documentation", "git", "sync", "docs", "update", "automatic"]
+}
