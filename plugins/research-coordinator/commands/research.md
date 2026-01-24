@@ -29,10 +29,10 @@ If `$ARGUMENTS` is empty:
 
 ### 2. Invoke Research Skill
 
-Use the Skill tool to invoke the `research` skill:
+Use the Skill tool to invoke the `research-workflow` skill:
 
 ```
-skill: "research-coordinator:research"
+skill: "research-coordinator:research-workflow"
 args: "[topic from arguments or user response]"
 ```
 
