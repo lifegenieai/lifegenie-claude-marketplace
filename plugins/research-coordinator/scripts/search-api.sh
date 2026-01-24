@@ -83,18 +83,25 @@ case "$SERVICE" in
         fi
 
         # Tavily API - LLM-optimized search results
-        # Docs: https://docs.tavily.com/api-reference
+        # Docs: https://docs.tavily.com/documentation/api-reference/introduction
+        # Auth: Bearer token in header (not in JSON body)
+
+        # Construct JSON safely with jq (escapes newlines, quotes, special chars)
+        JSON_BODY=$(jq -n \
+            --arg query "$QUERY" \
+            '{
+                query: $query,
+                max_results: 10,
+                include_answer: true,
+                include_raw_content: false,
+                search_depth: "advanced"
+            }')
+
         curl -s --max-time 30 -X POST "https://api.tavily.com/search" \
             -H "Content-Type: application/json" \
-            -d "{
-                \"api_key\": \"${TAVILY_API_KEY}\",
-                \"query\": \"${QUERY}\",
-                \"max_results\": 10,
-                \"include_answer\": true,
-                \"include_raw_content\": false,
-                \"search_depth\": \"advanced\"
-            }" | jq '.' > "$OUTPUT_FILE" 2>/dev/null || {
-                echo "{\"error\": \"Tavily API request failed\", \"service\": \"tavily\", \"query\": \"${QUERY}\"}" > "$OUTPUT_FILE"
+            -H "Authorization: Bearer ${TAVILY_API_KEY}" \
+            -d "$JSON_BODY" | jq '.' > "$OUTPUT_FILE" 2>/dev/null || {
+                echo "{\"error\": \"Tavily API request failed\", \"service\": \"tavily\"}" > "$OUTPUT_FILE"
                 exit 1
             }
         ;;
