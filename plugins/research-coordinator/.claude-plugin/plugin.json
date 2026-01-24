@@ -1,0 +1,9 @@
+{
+  "name": "research-coordinator",
+  "description": "Multi-agent research orchestration with Gemini CLI and Claude agents, citation verification, and report synthesis",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "keywords": ["research", "multi-agent", "gemini", "synthesis", "citations", "orchestration"]
+}
