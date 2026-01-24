@@ -1,5 +1,5 @@
 ---
-name: research-workflow
+name: deep-dive
 description: |
   Comprehensive web research with verified citations using direct API integration.
   No MCP servers - all search is code-wrapped for reliability.
@@ -12,6 +12,7 @@ allowed-tools:
   - Write
   - Bash
   - Glob
+  - Task
 ---
 
 # Research Skill
@@ -24,11 +25,12 @@ citation verification.
 ```
 SKILL (main conversation)
 ├── Phase 1: Clarify scope with user
-├── Phase 2: Define 4 research angles
-├── Phase 3: Execute parallel Bash searches
-├── Phase 4: Read results and synthesize
-├── Phase 5: Verify citations
-└── Phase 6: Write final report
+├── Phase 2: Write research brief
+├── Phase 3: Create research tasks
+├── Phase 4: Execute tasks (Tavily + Gemini)
+├── Phase 5: Per-task synthesis
+├── Phase 6: Write final report
+└── Phase 7: Verify citations (spawn Haiku agents)
 ```
 
 ## Configuration
