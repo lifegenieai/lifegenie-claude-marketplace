@@ -1,17 +1,19 @@
 # Research Coordinator Plugin
 
 Comprehensive web research with verified citations using direct API integration
-(Tavily + Gemini). No MCP servers - all search is code-wrapped for reliability.
+(Tavily + Gemini). Full 7-phase workflow inline - no indirection.
 
 ## Overview
 
-This plugin provides a skill-based research workflow that:
+This plugin provides a complete research workflow that:
 
 1. Clarifies research requirements through targeted questions
-2. Executes parallel searches via direct API calls (Tavily, Gemini)
-3. Synthesizes findings with inline citations
-4. Verifies URLs for accuracy
-5. Produces publication-ready markdown reports
+2. Creates a research brief as a standalone document
+3. Decomposes into parallel research tasks
+4. Executes searches via direct API calls (Tavily, Gemini)
+5. Synthesizes findings per-task before final report
+6. Produces publication-ready markdown reports
+7. Verifies citations using Haiku sub-agents
 
 ## Usage
 
@@ -33,20 +35,15 @@ If no topic is provided, the command will prompt you for one.
 User: /research "topic"
         ↓
 ┌─────────────────────────────────────────────────┐
-│  SKILL (runs in main conversation)              │
+│  COMMAND (runs in main conversation)            │
 │                                                 │
-│  1. Ask clarifying questions (depth/focus)      │
-│  2. Define 4 research angles                    │
-│                                                 │
-│  3. PARALLEL SEARCHES (Bash calls):             │
-│     ├── search-api.sh tavily "angle 1"          │
-│     ├── search-api.sh tavily "angle 2"          │
-│     ├── gemini-research.sh "angle 3"            │
-│     └── gemini-research.sh "angle 4"            │
-│                                                 │
-│  4. Read results and synthesize                 │
-│  5. Verify citations with fetch-url.sh          │
-│  6. Write final report                          │
+│  Phase 1: Clarify scope (dynamic questions)     │
+│  Phase 2: Write research brief                  │
+│  Phase 3: Create research tasks                 │
+│  Phase 4: Execute tasks (Tavily + Gemini)       │
+│  Phase 5: Per-task synthesis                    │
+│  Phase 6: Write final report                    │
+│  Phase 7: Verify citations (Haiku agents)       │
 └─────────────────────────────────────────────────┘
         ↓
 Final Report with verified sources
@@ -56,13 +53,15 @@ Final Report with verified sources
 
 **Previous approach (broken):**
 
+- Thin command wrapper invoking skills (indirection failed)
 - Subagents spawning subagents (not supported)
 - WebSearch requiring manual approval
 - WebSearch "0 searches performed" bugs (#11369, #10141)
 
-**New approach (reliable):**
+**Current approach (reliable):**
 
-- Skills run in main conversation with full tool access
+- Full workflow inline in command (no indirection)
+- Runs in main conversation with full tool access
 - Direct API calls via Bash scripts (deterministic, debuggable)
 - Gemini CLI as fallback (built-in Google grounding works)
 - No approval friction
@@ -71,11 +70,11 @@ Final Report with verified sources
 
 | Component            | Type    | Purpose                     |
 | -------------------- | ------- | --------------------------- |
-| `/research`          | Command | Entry point                 |
-| `skills/research.md` | Skill   | 6-phase workflow            |
+| `/research`          | Command | Full 7-phase workflow       |
+| `citation-verifier`  | Agent   | Haiku verification agents   |
 | `search-api.sh`      | Script  | Tavily/SerpAPI/Brave/Google |
-| `fetch-url.sh`       | Script  | URL verification            |
 | `gemini-research.sh` | Script  | Gemini CLI wrapper          |
+| `fetch-url.sh`       | Script  | URL verification            |
 
 ## Search APIs
 
@@ -103,10 +102,11 @@ Reports are saved to:
 - **Detailed Findings** - Organized by theme with inline citations
 - **Contradictions & Open Questions** - Where sources disagree
 - **Sources** - Verified citation table with status
+- **Research Metadata** - Task counts, search stats, verification results
 
 ## Citation Verification
 
-All key citations are verified by `fetch-url.sh`:
+All key citations are verified by Haiku sub-agents using `fetch-url.sh`:
 
 | Status       | Meaning                         |
 | ------------ | ------------------------------- |
@@ -152,23 +152,16 @@ npm install -g @google/generative-ai-cli
 ```
 research-coordinator/
 ├── .claude-plugin/
-│   └── plugin.json
+│   └── plugin.json            # v3.0.0
 ├── README.md
 ├── commands/
-│   └── research.md          # Entry point
-├── skills/
-│   └── research.md          # Main research workflow
+│   └── research.md            # Full 7-phase workflow
 ├── agents/
-│   ├── .deprecated/         # Old multi-agent files
-│   ├── citation-verifier.md # Optional subagent
-│   └── report-synthesizer.md# Optional subagent
-├── scripts/
-│   ├── search-api.sh        # Direct API wrapper
-│   ├── fetch-url.sh         # URL verification
-│   └── gemini-research.sh   # Gemini CLI wrapper
-└── templates/
-    ├── research-brief.md
-    └── research-report.md
+│   └── citation-verifier.md   # Haiku verification agents
+└── scripts/
+    ├── search-api.sh          # Tavily/SerpAPI/Brave/Google
+    ├── gemini-research.sh     # Gemini CLI wrapper
+    └── fetch-url.sh           # URL verification
 ```
 
 ## Author
@@ -177,4 +170,4 @@ Erik B
 
 ## Version
 
-2.0.0
+3.0.0

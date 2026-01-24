@@ -1,7 +1,7 @@
 {
   "name": "research-coordinator",
-  "description": "Comprehensive web research with verified citations using direct API integration (Tavily + Gemini). No MCP servers - all search is code-wrapped for reliability.",
-  "version": "2.0.0",
+  "description": "Comprehensive web research with verified citations using direct API integration (Tavily + Gemini). Inline 7-phase workflow with citation verification.",
+  "version": "3.0.0",
   "author": {
     "name": "Erik B"
   },
