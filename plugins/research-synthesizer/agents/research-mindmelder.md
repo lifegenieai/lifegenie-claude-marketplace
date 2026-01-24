@@ -138,6 +138,19 @@ Create a single document with this structure:
 - **Report 1**: [filename] - [source if determinable]
 - **Report 2**: [filename]
 
+## References
+
+<!-- Generated from pre-extracted citation JSON -->
+<!-- Format: [N] Authors. "Title" Venue Year. [url] [From: source-files] -->
+
+[1] Authors. "Title" Venue Year. [url][ref1] [From: source-file.md] [2] Authors.
+"Title" Venue Year. [url][ref2] [From: source-file.md]
+
+<!-- Use reference-style links for URLs to save tokens -->
+
+[ref1]: https://example.com/paper1
+[ref2]: https://example.com/paper2
+
 ```
 
 ### Step 4: Write Output File
@@ -180,6 +193,15 @@ Mind meld complete!
 - Add information not in the sources
 - Skip sections of the template
 - Lose attribution for unique insights
+
+**Citation Integration:**
+
+- Use the pre-extracted citation IDs [N] provided in the prompt
+- Do NOT re-parse citations from source files
+- Every factual claim should have a citation marker if one exists
+- The References section must include ALL citations from the JSON
+- Deduplicated citations already merged - don't duplicate
+- Format: `[N] Authors. "Title" Venue Year. [url] [From: source-files]`
 
 ## Edge Cases
 

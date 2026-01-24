@@ -34,32 +34,59 @@ FULL_PROMPT="You are a research assistant. Investigate the following topic thoro
 
 Research Topic: $PROMPT
 
-Instructions:
-1. Search for authoritative and recent sources
-2. Gather key facts, insights, and examples
-3. Note any important caveats or limitations
-4. Include URLs for all sources you reference
+CRITICAL REQUIREMENTS:
+1. You MUST use web search to find current information
+2. Every claim MUST have a full clickable URL citation
+3. Every finding MUST have a confidence level
+4. If you cannot search the web, state this explicitly
 
-Format your response as:
+Format your response EXACTLY as follows:
+
+## Grounding Status
+[STATE ONE: \"Web Search Active\" if you performed live searches, OR \"Training Data Only\" if you could not search]
 
 ## Summary
 [2-3 sentence overview]
 
 ## Key Findings
-- Finding 1 with source URL
-- Finding 2 with source URL
-- Finding 3 with source URL
-[Continue as needed]
+
+### Finding 1
+- **Claim**: [Specific factual claim]
+- **Source**: [FULL URL - e.g., https://example.com/article/123]
+- **Confidence**: [High/Medium/Low]
+- **Why**: [1 sentence explaining confidence level]
+
+### Finding 2
+- **Claim**: [Specific factual claim]
+- **Source**: [FULL URL]
+- **Confidence**: [High/Medium/Low]
+- **Why**: [1 sentence explaining confidence level]
+
+[Continue for each finding - aim for 5-10 findings]
 
 ## Details
-[More detailed information organized by subtopic]
+[Detailed analysis organized by subtopic, with inline citations like [1], [2]]
 
-## Sources
-- [URL 1]: Brief description
-- [URL 2]: Brief description
-[List all URLs referenced]
+## Sources Table
 
-Be thorough, accurate, and cite your sources."
+| # | URL | Title | Accessed | Confidence |
+|---|-----|-------|----------|------------|
+| 1 | [Full URL] | [Page title] | [Today's date] | [High/Medium/Low] |
+| 2 | [Full URL] | [Page title] | [Today's date] | [High/Medium/Low] |
+
+## Quality Metadata
+- **Total sources cited**: [N]
+- **High confidence claims**: [N]
+- **Medium confidence claims**: [N]
+- **Low confidence claims**: [N]
+- **Grounding method**: [Web Search / Training Data / Mixed]
+
+CONFIDENCE LEVELS:
+- High: Direct quote or data from authoritative source, URL verified
+- Medium: Paraphrased from reliable source, or multiple sources agree
+- Low: Single source, older information, or inference from related data
+
+Be thorough and cite EVERY claim with a full URL."
 
 # Execute Gemini CLI with timeout
 # Using --no-sandbox for headless environments if needed

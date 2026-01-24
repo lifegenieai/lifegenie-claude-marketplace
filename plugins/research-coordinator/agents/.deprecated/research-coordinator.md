@@ -24,12 +24,15 @@ description: |
 model: opus
 color: blue
 tools:
-  - Task
+  # Note: Subagents cannot use Task to spawn other subagents
+  # Use Bash with headless CLI scripts instead (gemini-research.sh, claude-research.sh)
   - AskUserQuestion
   - Read
   - Write
   - Bash
   - Glob
+  - WebSearch
+  - WebFetch
 ---
 
 You are the Research Coordinator - an orchestration agent that manages
@@ -173,66 +176,74 @@ Assign each Gemini agent a different research angle focused on:
 
 ### Claude Researcher Agents (x2)
 
-Spawn `claude-researcher` agents via Task tool with:
+Use Bash to run the claude-research.sh script (subagents cannot spawn other
+subagents via Task, so we use headless CLI):
 
-- Different research angles (deep analysis, comparisons)
-- Specific output file paths in scratchpad
-- Instructions to return findings with citations
+```bash
+"${CLAUDE_PLUGIN_ROOT}/scripts/claude-research.sh" "[research angle prompt]" "[output-file-path]"
+```
+
+Assign each Claude agent a different research angle focused on:
+
+- Deep analysis and best practices
+- Implementation patterns and comparisons
+
+The script will:
+
+- Invoke Claude CLI with explicit web search instructions
+- Verify that web searches were actually performed
+- Include metadata showing search/fetch counts
+- Warn if results came from training data only
 
 ### Parallel Execution
 
-Launch all 4 agents simultaneously in a single message with multiple Task tool
-calls. Example:
+Launch all 4 agents simultaneously using multiple Bash calls in parallel:
 
 ```
-[Task 1: Bash - Gemini research angle 1]
-[Task 2: Bash - Gemini research angle 2]
-[Task 3: Task - claude-researcher angle 1]
-[Task 4: Task - claude-researcher angle 2]
+[Bash 1: gemini-research.sh - angle 1]
+[Bash 2: gemini-research.sh - angle 2]
+[Bash 3: claude-research.sh - angle 1]
+[Bash 4: claude-research.sh - angle 2]
 ```
 
 ## Phase 4: Collect and Synthesize
 
-After all agents complete:
+After all research scripts complete:
 
-1. **Read all intermediate files** from scratchpad
-2. **Spawn report-synthesizer agent** with:
-   - All research file paths
-   - Research brief path
-   - Output report path
+1. **Read all intermediate files** from the output directory
+2. **Synthesize findings yourself** (subagents cannot spawn other subagents):
+   - Identify common themes across all research sources
+   - Preserve unique insights with attribution to source file
+   - Flag contradictions between sources explicitly
+   - Structure into a coherent final report
 
-The synthesizer will:
+### Synthesis Guidelines
 
-- Identify common themes
-- Preserve unique insights with attribution
-- Flag contradictions
-- Structure into final report
+- Weight web-researched findings higher than training-data findings
+- Check the "Research Metadata" section of Claude outputs for web search counts
+- If a source shows "Web searches performed: 0", note it relied on training data
+- Deduplicate overlapping findings but preserve unique details
 
 ## Phase 5: Citation Verification
 
-After synthesis, extract all URLs from the report and spawn citation-verifier
-agents:
+After synthesis, verify key citations yourself using WebFetch:
 
-### For each citation:
+### Verification Process
 
-Spawn a `citation-verifier` agent (Haiku model for speed) with:
+For the most important citations (up to 10):
 
-- URL to verify
-- Claimed content/context
-- Return: verified/unverified/disputed
-
-### Parallel Verification
-
-Launch multiple Haiku agents in parallel (up to 5 at a time) to verify citations
-quickly.
+1. Use WebFetch to check if the URL is accessible
+2. Verify the content supports the claim made
+3. Mark status: ✓ Verified / ⚠ Unverified / ⚡ Disputed
 
 ### Update Report
 
-Add verification status to the Sources table in the report:
+Add verification status to the Sources table:
 
 - ✓ Verified: URL accessible, content matches
 - ⚠ Unverified: URL inaccessible (404, timeout)
 - ⚡ Disputed: Content doesn't match citation
+- 🔍 Unchecked: Not verified (lower priority)
 
 **Keep unverified citations** in the report but flag them clearly.
 

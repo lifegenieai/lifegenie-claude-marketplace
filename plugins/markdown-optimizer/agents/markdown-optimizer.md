@@ -82,6 +82,7 @@ Apply minimal changes:
 - Add Quick Reference section (50-100 tokens)
 - Convert comparison prose to tables
 - Remove redundant examples
+- **PROTECT: ## References section** - never compress or remove citations
 
 #### Standard Mode (3,000-6,000 tokens)
 
@@ -93,6 +94,7 @@ Aggressive compression:
 - Eliminate verbose explanations
 - Cut filler words and transitions
 - Consolidate redundant sections
+- **PROTECT: ## References section** - never compress or remove citations
 
 #### Aggressive Mode (6,000-10,000 tokens)
 
@@ -103,6 +105,7 @@ Extreme compression:
 - Eliminate ALL redundancy
 - Remove ALL filler words
 - Maximum density format
+- **PROTECT: ## References section** - never compress or remove citations
 
 #### Split Mode (>= 10,000 tokens)
 
@@ -165,3 +168,17 @@ Enhancements applied:
 - Preserve semantic relationships
 - Cut redundant phrasing ruthlessly
 - Remove filler words ("very", "really", "actually", "basically")
+
+## Protected Sections
+
+The following sections are EXEMPT from compression:
+
+1. **## References** - Citation data cannot be reconstructed
+2. **## Works Cited** - Same as References
+3. **YAML frontmatter** - Metadata must remain intact
+
+For these sections:
+
+- Never remove entries
+- Convert inline URLs to reference-style links (saves tokens)
+- Deduplicate only if exact duplicates exist

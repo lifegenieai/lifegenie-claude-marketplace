@@ -6,6 +6,7 @@ allowed-tools:
   - Write
   - Glob
   - Task
+  - Bash
 argument-hint: <source-path> <destination-folder>
 ---
 
@@ -45,25 +46,61 @@ Determine topic name for output file from:
 - Common prefix in filenames
 - Or default to "research" if unable to determine
 
+### 3.5. Extract Citations (Deterministic)
+
+Run the citation extractor on all source files using Bash:
+
+```bash
+bun run ${CLAUDE_PLUGIN_ROOT}/lib/citation-extractor.ts <file1> <file2> ...
+```
+
+Pass all the file paths found in Step 2 as arguments.
+
+The script outputs JSON with:
+
+- `citations`: Array of normalized citations with id, authors, title, year,
+  venue, url, sourceFiles
+- `totalFound`: Total unique citations
+- `bySourceFile`: Count per source file
+
+Capture the JSON output to pass to the mindmelder agent.
+
 ### 4. Spawn Mind Melder Agent
 
 Use the Task tool to spawn the `research-mindmelder` agent with this prompt:
 
-```
+````
 Synthesize the following research reports into a single coherent document.
 
 **Source files**: [list all file paths found]
-**Output destination**: [destination]/[topic]-mindmeld-[TODAY's date].md
+**Output destination**: [destination]/[topic]-mindmeld-[YYYY-MM-DD].md
 **Topic**: [extracted topic name]
 
-Read all source files, synthesize them following the research synthesis template, and write the output file. Return a summary with:
+**PRE-EXTRACTED CITATIONS (use these directly):**
+
+```json
+[paste the JSON output from citation-extractor.ts]
+```
+
+IMPORTANT: Do NOT re-extract citations from the source files. Use the
+pre-extracted citations above. For each finding/claim in your synthesis, add the
+appropriate citation marker [N] that corresponds to the citation ID in the JSON.
+
+Include a ## References section at the end with all citations formatted as:
+[N] Authors. "Title" Venue Year. [url] [From: source-files]
+
+Read all source files for content synthesis, but use the provided citation JSON
+for all citation markers and the References section.
+
+Return a summary with:
 - Number of files processed
 - Total token count from source files
 - Any contradictions found
 - Key topics covered
 - Confidence level
 - Final output file path
-```
+- Number of citations preserved
+````
 
 ### 5. Spawn Markdown Optimizer Agent
 

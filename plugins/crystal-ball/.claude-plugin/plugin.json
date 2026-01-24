@@ -1,0 +1,10 @@
+{
+  "name": "crystal-ball",
+  "description": "Agent-native task and idea management with Kanban pipeline",
+  "version": "1.0.0",
+  "author": {
+    "name": "Erik B"
+  },
+  "keywords": ["tasks", "ideas", "kanban", "inbox", "backlog", "productivity"],
+  "commands": "./commands/"
+}
