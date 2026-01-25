@@ -82,6 +82,17 @@
       "source": "./plugins/research-coordinator",
       "category": "research",
       "tags": ["research", "multi-agent", "gemini", "synthesis", "citations", "orchestration"]
+    },
+    {
+      "name": "elevenlabs-voice-designer",
+      "description": "Expert voice design prompting for ElevenLabs AI voices with interactive wizard and 22+ technique examples",
+      "version": "1.0.0",
+      "author": {
+        "name": "Erik B"
+      },
+      "source": "./plugins/elevenlabs-voice-designer",
+      "category": "creative",
+      "tags": ["elevenlabs", "voice", "tts", "voice-design", "prompting", "audio", "ai-voices"]
     }
   ]
 }
