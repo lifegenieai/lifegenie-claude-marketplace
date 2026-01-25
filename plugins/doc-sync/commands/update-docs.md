@@ -25,6 +25,19 @@ Update project documentation based on recent Git commits on the current branch.
 
 Execute these steps in order, using sub-agents to protect context:
 
+### Step 0: Check State File
+
+Before starting, check for an existing state file at `docs/tech-docs/.doc-sync-state.json`:
+
+1. If it exists, read it and note the `last_sync.commit_sha`
+2. Compare with current HEAD - if they match and branch is same, docs may already be in sync
+3. If it doesn't exist, this is fine - we'll create it after updates
+
+The state file tracks when doc-sync last ran successfully, enabling:
+- Skip if no new commits since last sync
+- Show "last synced at <commit>" in PR descriptions
+- Integration with commit-push-pr workflow
+
 ### Step 1: Analyze Git Changes
 
 Launch the **git-change-analyzer** agent using the Task tool with:
@@ -156,7 +169,15 @@ After all steps complete:
 
 1. Summarize what was analyzed
 2. List documentation that was updated (or needs updating if --analyze-only)
-3. Suggest running `/update-docs` again after more changes accumulate
+3. Show state file status:
+   - If updated: "State file updated: docs/tech-docs/.doc-sync-state.json"
+   - If analyze-only: "Run without --analyze-only to update docs and state"
+4. Suggest running `/update-docs` again after more changes accumulate
+
+**State file location:** `docs/tech-docs/.doc-sync-state.json`
+
+The state file is updated by the doc-updater agent after successful updates.
+In analyze-only mode, the state file is NOT updated (no changes were made).
 
 ## Error Handling
 

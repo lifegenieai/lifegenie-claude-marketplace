@@ -258,6 +258,34 @@ Before finishing each document:
 - **Very long documents:** Focus on the specific sections that need updating
 - **Index files:** Remember to update README.md files that index documentation
 
+### 7. Update State File
+
+After completing all documentation updates, update the state file at
+`docs/tech-docs/.doc-sync-state.json`:
+
+```json
+{
+  "last_sync": {
+    "date": "<today's date YYYY-MM-DD>",
+    "commit_sha": "<HEAD SHA from changes.md>",
+    "branch": "<branch name from changes.md>",
+    "result": {
+      "gaps_found": <total gaps from gaps.md>,
+      "gaps_resolved": <number you actually fixed>,
+      "files_updated": [
+        "<relative path to updated doc>",
+        "<relative path to updated doc>"
+      ]
+    }
+  }
+}
+```
+
+If the file doesn't exist, create it. If it exists, overwrite it with the new state.
+
+**Extract the HEAD SHA from `.claude/doc-sync/changes.md`** - it should be in the
+header as `**HEAD SHA:** <sha>`.
+
 ## Output
 
 Report completion with:
@@ -266,3 +294,4 @@ Report completion with:
 2. Summary of changes per file
 3. Any items that need human review
 4. Verification checklist status
+5. Confirmation that state file was updated

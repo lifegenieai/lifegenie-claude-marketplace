@@ -77,7 +77,18 @@ A commit may affect multiple categories - list it under each relevant category.
 mkdir -p .claude/doc-sync
 ```
 
-### 7. Write the Analysis
+### 7. Record Current HEAD SHA
+
+Get the current HEAD commit SHA for state tracking:
+
+```bash
+git rev-parse HEAD
+```
+
+Include this in the changes.md file header as `**HEAD SHA:** <sha>` so downstream
+agents can use it for state updates.
+
+### 8. Write the Analysis
 
 Write to `.claude/doc-sync/changes.md` in this format:
 
@@ -85,7 +96,7 @@ Write to `.claude/doc-sync/changes.md` in this format:
 # Git Change Analysis
 
 **Branch:** <current-branch> **Base:** <base-branch> **Commits analyzed:**
-<count> **Analysis date:** <today's date>
+<count> **Analysis date:** <today's date> **HEAD SHA:** <current HEAD SHA>
 
 ## Summary
 
