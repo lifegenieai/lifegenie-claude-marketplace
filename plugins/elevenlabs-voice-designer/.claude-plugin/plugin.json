@@ -1,0 +1,9 @@
+{
+  "name": "elevenlabs-voice-designer",
+  "version": "1.0.0",
+  "description": "Expert voice design prompting for ElevenLabs AI voices",
+  "author": {
+    "name": "erikb"
+  },
+  "keywords": ["elevenlabs", "voice", "tts", "voice-design", "prompting"]
+}
