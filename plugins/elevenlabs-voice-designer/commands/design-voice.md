@@ -3,7 +3,7 @@ description:
   Interactive wizard to build ElevenLabs voice design prompts step-by-step. Use
   when creating AI voices, designing character voices, or crafting voice
   descriptions for ElevenLabs Voice Design.
-argument-hint: [optional: voice archetype like "narrator" or "villain"]
+argument-hint: "optional: voice archetype like 'narrator' or 'villain'"
 allowed-tools:
   - AskUserQuestion
 ---
