@@ -5,7 +5,7 @@ description: >
   by documentation impact. Simple extraction task - parses git log output and
   files changed, no complex reasoning required. Outputs structured change
   analysis for downstream doc analysis.
-model: haiku
+model: sonnet
 color: cyan
 allowed-tools:
   - Bash
