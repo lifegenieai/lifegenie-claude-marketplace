@@ -93,6 +93,17 @@
       "source": "./plugins/elevenlabs-voice-designer",
       "category": "creative",
       "tags": ["elevenlabs", "voice", "tts", "voice-design", "prompting", "audio", "ai-voices"]
+    },
+    {
+      "name": "copy-editor",
+      "description": "Stylometric document transformer — applies target writing styles to content while preserving factual accuracy",
+      "version": "1.0.0",
+      "author": {
+        "name": "Sapient Technology Group"
+      },
+      "source": "./plugins/copy-editor",
+      "category": "writing",
+      "tags": ["copy-editing", "stylometry", "ghostwriting", "voice-matching", "writing-style", "transformation"]
     }
   ]
 }

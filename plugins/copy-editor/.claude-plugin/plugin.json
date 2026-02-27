@@ -1,0 +1,9 @@
+{
+  "name": "copy-editor",
+  "description": "Stylometric document transformer — applies target writing styles to content while preserving factual accuracy",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sapient Technology Group"
+  },
+  "keywords": ["copy-editing", "stylometry", "ghostwriting", "voice-matching", "writing-style"]
+}
