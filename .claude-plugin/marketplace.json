@@ -96,8 +96,8 @@
     },
     {
       "name": "copy-editor",
-      "description": "Stylometric document transformer — applies target writing styles to content while preserving factual accuracy",
-      "version": "1.0.0",
+      "description": "Full-service copy editor: generates, edits, rewrites, transforms, and proofreads content with stylometric precision and AI anti-pattern guardrails",
+      "version": "2.0.0",
       "author": {
         "name": "Sapient Technology Group"
       },
