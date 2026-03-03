@@ -1,0 +1,280 @@
+{
+  "instructions": [
+    {
+      "instruction": "Detect operating mode automatically from arguments and context (Transform, Rewrite, Edit, Generate, Proofread)",
+      "original_snippets": "The copy-editor operates in five modes, determined automatically from the arguments and context",
+      "relevant_when": "Starting any copy-editor task",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Style is optional for Edit and Proofread modes; preserve source voice if omitted",
+      "original_snippets": "Style is optional for Edit and Proofread modes -- if omitted, the copy-editor preserves the source's existing voice while correcting issues.",
+      "relevant_when": "Edit or Proofread mode invoked without a style argument",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Resolve style argument in order: named style lookup, file path, inline description",
+      "original_snippets": "Named style -- Check references/named-styles/ for a matching profile ... File path -- Read the file ... Inline description -- If quoted, extrapolate",
+      "relevant_when": "Any mode that accepts a style argument",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Named style matching is flexible: case-insensitive, with or without hyphens, partial names resolve to most specific match",
+      "original_snippets": "john-roberts, John-Roberts, john roberts, and Roberts all resolve to the same profile. When multiple profiles could match a partial name, load the most specific match.",
+      "relevant_when": "Style argument matches a named style",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "For inline style descriptions, extrapolate using framework dimensions, filling reasonable defaults for unspecified dimensions",
+      "original_snippets": "For inline descriptions (quoted strings), extrapolate from the description using the framework dimensions, filling reasonable defaults for unspecified dimensions based on the described register",
+      "relevant_when": "Style input is a quoted inline description",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Do not output the stylometric profile unless explicitly requested",
+      "original_snippets": "Do not output the profile unless explicitly requested",
+      "relevant_when": "Phase 1 style absorption",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Read the source document completely before beginning analysis",
+      "original_snippets": "Read the source document completely",
+      "relevant_when": "Phase 2 source analysis in Transform, Rewrite, Edit, or Proofread mode",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Identify structural elements to preserve: headers, lists, data, quotes",
+      "original_snippets": "Identify structural elements to preserve (headers, lists, data, quotes)",
+      "relevant_when": "Phase 2 source analysis",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "For Transform/Rewrite: map the delta between source voice and target voice",
+      "original_snippets": "For Transform/Rewrite: map the delta between source voice and target voice",
+      "relevant_when": "Phase 2 in Transform or Rewrite mode",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Transform inside-out: paragraph architecture first, then sentence structure, then rhetorical patterns, then lexical register, then surface polish",
+      "original_snippets": "Transformation order: 1. Paragraph architecture (macro rhythm) 2. Sentence structure (micro rhythm) 3. Rhetorical patterns 4. Lexical register 5. Surface polish",
+      "relevant_when": "Phase 3 Transform mode composition",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Preserve all factual claims, data points, proper nouns, citations, attributions, and technical terminology accuracy throughout all modes",
+      "original_snippets": "Preserve throughout (all modes): All factual claims and data points, Core argumentative structure and logical flow, Proper nouns, citations, and attributions, Technical terminology accuracy",
+      "relevant_when": "Any mode of operation during composition",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "In Generate mode, output must read as if the target author wrote it natively",
+      "original_snippets": "Apply the same stylometric rigor as Transform -- the output must read as if the target author wrote it natively.",
+      "relevant_when": "Generate mode composition",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "In Proofread mode, do not alter voice, restructure sentences, or change word choice beyond correcting errors; flag style concerns as comments",
+      "original_snippets": "Grammar, spelling, punctuation, and internal consistency only. Do not alter voice, restructure sentences, or change word choice beyond correcting errors. Flag (but do not fix) style concerns as comments.",
+      "relevant_when": "Proofread mode composition",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Run quality checks #1-#9 after every operation",
+      "original_snippets": "Run the quality checks defined in references/transformation-methodology.md (checks #1-#9). Every mode runs all applicable checks.",
+      "relevant_when": "Phase 5 quality gates, all modes",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Quality check #7: scan output against ai-anti-patterns.md, rewrite any violations, zero tolerance",
+      "original_snippets": "#7 AI anti-pattern scan -- Scan output against references/ai-anti-patterns.md. Rewrite any violations. Zero tolerance.",
+      "relevant_when": "Phase 5 quality gates, all modes",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Quality check #8: narrative density -- no paragraph should be replaceable by bullet points without losing anything",
+      "original_snippets": "#8 Narrative density check -- Verify no paragraph has been flattened into a summary that could be replaced by bullet points without losing anything.",
+      "relevant_when": "Phase 5 quality gates, especially middle sections",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Quality check #9: tightening pass -- cut filler, redundancy, bloated transitions, and hedging sentence by sentence",
+      "original_snippets": "#9 Tightening pass -- Sentence-by-sentence check for filler, redundancy, bloated transitions, and hedging.",
+      "relevant_when": "Phase 5 quality gates, all modes",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use rhetorical contrastive negation ('Not X. Y.' pattern)",
+      "original_snippets": "The tell: 'Not X. Y.' or 'Not X. Just Y.' or 'It's not about X. It's about Y.' ... This is the single most common LLM writing pattern.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use parallel binary comparisons (balanced A/B mirrored clauses)",
+      "original_snippets": "Balanced A/B sentence pairs with mirrored structure. ... 'Where X gives you A, Y gives you B'",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use asyndetic tricolon with kicker ('X. Y. Z. And then...')",
+      "original_snippets": "Three short fragments in sequence, followed by a punchline. 'X. Y. Z. And then [dramatic conclusion].'",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use choppy fragment chains (multiple noun-phrase fragments for dramatic effect)",
+      "original_snippets": "Multiple sentence fragments in sequence for 'dramatic effect.' Each fragment is 1-5 words, usually noun phrases.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use symmetrical LLM patterns (fortune-cookie balanced clauses)",
+      "original_snippets": "Any sentence where the two halves mirror each other structurally. ... Chiasmus or antithesis that reads like a fortune cookie.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use self-answering fragment questions ('The result? Great.' pattern)",
+      "original_snippets": "'The result? A cleaner architecture.' 'The best part? It just works.' ... It creates fake dramatic tension where none exists.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use parenthetical em-dashes (paired dashes as fancy commas); single em-dash for hard break is acceptable",
+      "original_snippets": "Paired em-dashes used to set off an aside, where commas or parentheses would do the same job. ... A single em-dash for a hard break at the end of a clause is fine.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "No more than two em-dashes per section",
+      "original_snippets": "More than two em-dashes per section, even when used correctly.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use preamble announcements ('In this article, we'll explore...')",
+      "original_snippets": "'In this article, we'll explore...' 'Let's take a look at...' 'What follows is...'",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use sycophantic hedging ('It's worth noting that...', 'Interestingly enough...')",
+      "original_snippets": "'It's worth noting that...' 'Interestingly enough...' 'To be fair...' ... These are throat-clearing.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use emojis unless target style profile explicitly includes them and user has requested their inclusion",
+      "original_snippets": "Never. Zero. Not in headings, not in body text, not in summaries. The only exception: if the target style profile explicitly includes emoji usage as a signature element AND the user has requested their inclusion.",
+      "relevant_when": "Any output",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Never use AI vocabulary contamination words (delve, tapestry, leverage, pivotal, nuanced, robust, seamless, etc.)",
+      "original_snippets": "Verbs: 'delve', 'underscore', 'highlight' (as verb), 'foster', 'leverage', 'harness' ... Adjectives: 'pivotal', 'crucial', 'vital', 'nuanced', 'multifaceted', 'robust', 'seamless'",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use copula avoidance ('serves as' instead of 'is', 'boasts' instead of 'has')",
+      "original_snippets": "'serves as' / 'stands as' / 'acts as' instead of 'is' ... 'boasts' / 'features' / 'offers' instead of 'has' ... Use 'is', 'are', 'has.'",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Vary sentence length (high burstiness): roughly 20% short (<10 words), 50% medium (10-20), 30% long (20+)",
+      "original_snippets": "LLMs produce text with remarkably uniform sentence length -- researchers call this 'low burstiness.' ... Good target distribution: roughly 20% short (under 10 words), 50% medium (10-20 words), 30% long (20+ words).",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never fabricate personal experience; personal moments must come from source material or author's actual notes",
+      "original_snippets": "The AI simulates personal encounters, emotional reactions, or sensory moments that never happened. ... Personal moments must come from the source material, the author's notes, or the actual events described.",
+      "relevant_when": "Any prose output, especially Generate and Rewrite modes",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use false ranges ('from beginners to experts', 'from startups to enterprises')",
+      "original_snippets": "'From beginners to experts' 'From startups to enterprises' ... it avoids committing to an audience because the AI doesn't know who the audience actually is.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never use synonym cycling; use the same word for the same concept consistently",
+      "original_snippets": "The same thing is called by a different name every time it appears. 'The CLI' becomes 'the tool' becomes 'the interface' ... Use the same word. 'The CLI' is 'the CLI' every time.",
+      "relevant_when": "Any prose output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Never output Unicode giveaways: curly quotes, horizontal ellipsis, bullet character, en dashes; use plain ASCII",
+      "original_snippets": "Curly double quotes ... Curly single quotes ... Horizontal ellipsis ... En dash ... Use plain ASCII in the output.",
+      "relevant_when": "Any output",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Voice consistency: every section must sound like the same author; rhetorical devices present throughout, not just in the opening",
+      "original_snippets": "Does every section sound like the same author, or does the voice drift mid-document? ... Are rhetorical devices from the target style present throughout, not just concentrated in the opening?",
+      "relevant_when": "Phase 5 quality gate check #3",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Narrative density: watch for passive constructions removing the human, abstract nouns replacing lived experience, and missing human reactions -- especially in the MIDDLE of documents",
+      "original_snippets": "Watch especially for the MIDDLE of documents, where AI tends to drift from vivid prose into report mode. Symptoms: Passive constructions that remove the human ... Abstract nouns replacing lived experience ... Missing human reactions",
+      "relevant_when": "Phase 5 quality gate check #8",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Tightening pass: every sentence must earn its place; kill bloated transitions and hedging filler",
+      "original_snippets": "For every sentence, ask: 'Would the reader miss this if it vanished?' If not, cut it. ... Bloated transitions: 'Now that we've seen X, let's look at Y' -- just start Y. ... Hedging filler: 'basically,' 'essentially,' 'in order to' -- delete.",
+      "relevant_when": "Phase 5 quality gate check #9",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Provide a brief summary of work performed: mode used, voice shift, structural changes, anti-patterns caught, content preserved",
+      "original_snippets": "Provide a brief summary of work performed: Mode used and why, Voice shift description, Major structural changes, AI anti-patterns caught and rewritten (count), Any content preserved verbatim and why",
+      "relevant_when": "Phase 6 output",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Consult references/stylometric-framework.md for analysis dimensions when building profiles",
+      "original_snippets": "Consult references/stylometric-framework.md for the analysis dimensions",
+      "relevant_when": "Phase 1 style absorption",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Follow references/transformation-methodology.md for systematic style application",
+      "original_snippets": "Apply the target style systematically following references/transformation-methodology.md",
+      "relevant_when": "Phase 3 Transform mode composition",
+      "why_given": "particular preference"
+    },
+    {
+      "instruction": "Avoid Word-Swap Syndrome: always restructure first, then adjust words",
+      "original_snippets": "Replacing individual words while leaving sentence structure intact. The result reads like a thesaurus was applied. Always restructure first, then adjust words.",
+      "relevant_when": "Phase 3 Transform or Rewrite mode",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Avoid Voice Averaging: commit fully to the target voice, half-measures produce uncanny results",
+      "original_snippets": "Blending source and target into a middle ground that sounds like neither. Commit fully to the target voice -- half-measures produce uncanny results.",
+      "relevant_when": "Phase 3 Transform or Rewrite mode",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Avoid Mechanical Regularity: natural writing has variance; match the frequency, not just the presence, of stylistic features",
+      "original_snippets": "Applying target patterns too uniformly. Natural writing has variance. If the target averages 15-word sentences, that means some are 8 and some are 25 -- not all 15.",
+      "relevant_when": "Phase 3 Transform or Rewrite mode",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Avoid Content Distortion: verify that transformed sentences make the same claim as the original",
+      "original_snippets": "Always verify that transformed sentences make the same claim as the original, just differently expressed.",
+      "relevant_when": "Phase 3 Transform or Rewrite mode, Phase 5 check #1",
+      "why_given": "new knowledge"
+    },
+    {
+      "instruction": "Avoid Style Overloading: match the frequency of stylistic features, not just their presence",
+      "original_snippets": "Cramming every characteristic device into every paragraph. A writer who uses tricolon doesn't use it in every sentence. Match the frequency, not just the presence, of stylistic features.",
+      "relevant_when": "Phase 3 Transform, Rewrite, or Generate mode",
+      "why_given": "new knowledge"
+    }
+  ]
+}

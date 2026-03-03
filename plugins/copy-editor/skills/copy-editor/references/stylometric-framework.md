@@ -49,8 +49,41 @@ document or a source document's current voice.
 
 - Words the target style never uses
 - Cliches or idioms the style avoids
-- AI-associated language to exclude (delve, leverage, realm, unlock,
-  game-changer, cutting-edge, etc.)
+- AI-associated language to exclude -- see comprehensive watchlist below and
+  `ai-anti-patterns.md` pattern #12 for full context
+
+**AI Vocabulary Watchlist** (words appearing 5-50x more frequently in
+AI-generated text than in human writing):
+
+| Category           | Words                                                                                                                                                             |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Verbs**          | delve, underscore, highlight (as verb), foster, leverage, harness, showcase, streamline, navigate (abstract), cultivate, illuminate, orchestrate, spearhead        |
+| **Nouns**          | tapestry, landscape (abstract), realm, journey (abstract), ecosystem, paradigm, trajectory, blueprint, interplay, intricacies                                     |
+| **Adjectives**     | pivotal, crucial, vital, nuanced, multifaceted, robust, seamless, comprehensive, cutting-edge, groundbreaking, transformative                                     |
+| **Inflation**      | "plays a significant role in shaping", "serves as a testament to", "it is important to note", "a vibrant tapestry of"                                             |
+| **Copula evasion** | "serves as" / "stands as" / "acts as" (use "is"), "boasts" / "features" / "offers" (use "has"), "represents" / "marks" / "signals" (use "is" or a specific verb) |
+
+**Plain-language replacements:**
+
+| AI word/phrase         | Use instead                                       |
+| ---------------------- | ------------------------------------------------- |
+| delve into             | look at, examine, explore                         |
+| leverage               | use                                               |
+| navigate the landscape | figure out, work through                          |
+| pivotal                | important (or show why it matters)                |
+| nuanced                | detailed, subtle (or describe the actual nuance)  |
+| robust                 | strong, reliable, solid                           |
+| seamless               | smooth, easy (or describe what makes it easy)     |
+| foster                 | encourage, support, build                         |
+| harness                | use, apply                                        |
+| showcase               | show, demonstrate                                 |
+| streamline             | simplify, speed up                                |
+| groundbreaking         | new, novel (or describe what it actually changes) |
+| transformative         | significant, major (or describe the transformation) |
+
+One flagged word in a long document may be fine. Three in a paragraph is a
+contamination event that signals AI generation. Scan for them during the
+Phase 5 quality gate (see `ai-anti-patterns.md` #12).
 
 ### 3. Voice and Stance
 
