@@ -632,9 +632,13 @@ async function generateImage(options: Options): Promise<string[]> {
       if (chunks.length > 0) {
         console.log(`  \x1b[90mSources (${chunks.length}):\x1b[0m`);
         for (const chunk of chunks.slice(0, 5)) {
-          const web = chunk.web as Record<string, string> | undefined;
-          const url = web?.uri || (chunk.uri as string) || "";
-          if (url) console.log(`    \x1b[90m- ${url}\x1b[0m`);
+          const c = chunk as Record<string, Record<string, string>>;
+          const web = c.web;
+          const img = c.image;
+          const domain = web?.title || img?.domain || "";
+          const title = img?.title?.replace(/<[^>]*>/g, "") || "";
+          const label = title || domain || "unknown";
+          console.log(`    \x1b[90m- ${label}\x1b[0m`);
         }
       }
     }
