@@ -1,0 +1,16 @@
+{
+  "name": "nano-banana",
+  "version": "2.0.0",
+  "description": "AI image generation CLI powered by Gemini 3.1 Flash (default) and Gemini 3 Pro. Multi-resolution, aspect ratios, cost tracking, green screen transparency, and reference images.",
+  "author": {
+    "name": "Bootoshi",
+    "url": "https://github.com/kingbootoshi"
+  },
+  "contributors": [
+    {
+      "name": "Erik B",
+      "role": "Plugin adaptation"
+    }
+  ],
+  "keywords": ["image-generation", "ai", "gemini", "pixel-art", "green-screen", "style-transfer", "nano-banana"]
+}

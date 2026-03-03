@@ -1,0 +1,12 @@
+{
+  "name": "nano-banana-tools",
+  "version": "2.0.0",
+  "description": "Nano Banana CLI tool - AI image generation powered by Gemini",
+  "type": "module",
+  "bin": {
+    "nano-banana": "./cli.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^1.34.0"
+  }
+}
