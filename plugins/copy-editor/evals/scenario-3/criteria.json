@@ -1,0 +1,86 @@
+{
+  "context": "Tests factual preservation under aggressive voice transformation. The source is a dense technical benchmark report with dozens of precise numbers. The target voice (john-roberts) is conversational and premise-driven -- the opposite of a benchmark report. Every number must survive exactly while the voice transforms dramatically. This is the hardest quality gate test.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Voice transformation applied",
+      "description": "The output reads conversationally, not like a benchmark report. Prose flows as narrative rather than tabular data dumps. Sentence structure reflects john-roberts style: deceptively simple, premise-driven logic.",
+      "max_score": 10
+    },
+    {
+      "name": "tpmC result preserved",
+      "description": "The exact number 287,431 tpmC appears in the output",
+      "max_score": 6
+    },
+    {
+      "name": "Improvement percentage preserved",
+      "description": "The 23.7% improvement over PostgreSQL 15.4 is stated in the output",
+      "max_score": 5
+    },
+    {
+      "name": "p99 latency preserved",
+      "description": "The p99 latency values 12.3 ms and 18.9 ms both appear in the output",
+      "max_score": 5
+    },
+    {
+      "name": "Deadlock rates preserved",
+      "description": "Both deadlock rates (0.0034% and 0.0009%) appear in the output",
+      "max_score": 5
+    },
+    {
+      "name": "Transaction mix preserved",
+      "description": "At least the New Order (44.8%) and Payment (43.1%) percentages appear in the output",
+      "max_score": 5
+    },
+    {
+      "name": "CPU utilization preserved",
+      "description": "The 73.2% average and 89.4% peak CPU utilization values appear in the output",
+      "max_score": 5
+    },
+    {
+      "name": "SVE benefit preserved",
+      "description": "The 14.6% hash join improvement from SVE instructions appears in the output",
+      "max_score": 5
+    },
+    {
+      "name": "Cost-per-transaction preserved",
+      "description": "The cost-per-transaction values ($0.0000034 and $0.0000047) and the 27.5% cost advantage appear in the output",
+      "max_score": 6
+    },
+    {
+      "name": "Instance types preserved",
+      "description": "Instance type identifiers c7g.8xlarge and c6i.8xlarge appear in the output",
+      "max_score": 5
+    },
+    {
+      "name": "Configuration values preserved",
+      "description": "At least shared_buffers (16 GB), effective_cache_size (48 GB), and work_mem (64 MB) appear in the output",
+      "max_score": 5
+    },
+    {
+      "name": "Commit hash preserved",
+      "description": "The commit hash a]b7c2e3f appears in the output",
+      "max_score": 4
+    },
+    {
+      "name": "Total cost preserved",
+      "description": "The total benchmark cost of $4.30 ($2.43 + $1.87) appears in the output",
+      "max_score": 5
+    },
+    {
+      "name": "No AI anti-patterns introduced",
+      "description": "The transformation does not introduce any of the 18 AI anti-patterns: no contrastive negation, no parallel binaries, no AI vocabulary, no copula avoidance, no low burstiness, etc.",
+      "max_score": 8
+    },
+    {
+      "name": "No fabricated experience",
+      "description": "The output does not fabricate personal benchmarking experience ('I ran these tests...', 'What struck me about the numbers...')",
+      "max_score": 6
+    },
+    {
+      "name": "Summary provided",
+      "description": "The skill provides a brief summary noting the mode, voice shift, and any anti-patterns caught",
+      "max_score": 5
+    }
+  ]
+}

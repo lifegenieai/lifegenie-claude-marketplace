@@ -1,7 +1,8 @@
-# Transformation Methodology
+# Copy Editing Methodology & Quality Gates
 
-Systematic approach to applying stylometric transformations. Follow these
-procedures when converting source content to a target voice.
+Systematic approach to all copy-editing operations: transformations, rewrites,
+edits, generation, and proofreading. Follow these procedures and quality gates
+for every mode of operation.
 
 ## Core Principle: Inside-Out Transformation
 
@@ -149,14 +150,61 @@ When target's argumentation pattern differs from source:
 
 ## Quality Checks
 
-After completing transformation, verify:
+After completing any operation (transform, rewrite, edit, generate, or
+proofread), verify all applicable checks. Checks #1-#6 are inherited from the
+original methodology. Checks #7-#9 are mandatory for all modes that produce or
+modify prose.
 
 1. **Factual integrity** — All data points, proper nouns, citations preserved
 2. **Logical coherence** — Argument still follows, no non-sequiturs introduced
-3. **Voice consistency** — Read aloud (mentally): does it sound like one author?
+3. **Voice consistency** — Verify using the checklist below
 4. **No over-correction** — Dimensions already aligned should remain natural
 5. **No artifacts** — No remnant phrases from source voice that clash
-6. **Readability** — Transformed text flows naturally, no awkward constructions
+6. **Readability** — Text flows naturally, no awkward constructions
+7. **AI anti-pattern scan** — Scan output against `ai-anti-patterns.md`.
+   Rewrite any violations. Zero tolerance. All 18 patterns must be checked.
+8. **Narrative density check** — For each paragraph, apply this test: "Could I
+   rewrite this paragraph as three bullet points in a status update and lose
+   nothing?" If yes, it's been flattened into a summary -- restore specificity.
+   Watch especially for the MIDDLE of documents, where AI tends to drift from
+   vivid prose into report mode. Symptoms of flattening:
+   - Passive constructions that remove the human ("Implementation proceeded"
+     instead of "I hit enter and watched it scaffold 62 files in twelve
+     seconds")
+   - Abstract nouns replacing lived experience ("The architectural convergence"
+     instead of "Three companies shipped the same idea within a month")
+   - Missing human reactions: what did someone think, say, or feel when it
+     happened? If a paragraph describes an event without anyone reacting to it,
+     it's a summary, not a story
+9. **Tightening pass** — Re-read the output sentence by sentence:
+   - For every sentence, ask: "Would the reader miss this if it vanished?" If
+     not, cut it.
+   - Two sentences making the same point in different words? Keep the stronger
+     one, cut the other.
+   - Bloated transitions: "Now that we've seen X, let's look at Y" -- just
+     start Y. The reader doesn't need a narrator announcing scene changes.
+   - Hedging filler that crept in: "basically," "essentially," "in order to,"
+     "it should be noted that" -- delete.
+   - The goal is to tighten without losing substance. Lean prose that earns
+     every sentence is better than padded prose that hits a word count.
+
+### Voice Consistency Checklist (Check #3 Expanded)
+
+Before finalizing output, verify:
+
+- [ ] Does every section sound like the same author, or does the voice drift
+      mid-document? (Common failure: technical sections shift to a different,
+      more clinical register)
+- [ ] Are rhetorical devices from the target style present throughout, not just
+      concentrated in the opening?
+- [ ] Are cultural references earned (they illuminate the point) or decorative
+      (name-dropping)?
+- [ ] Would you be embarrassed to read any sentence aloud? If yes, the sentence
+      is trying too hard or not hard enough.
+- [ ] Does the confidence level remain consistent? (No sudden shifts from
+      authoritative to hedging or vice versa)
+- [ ] In Transform/Rewrite modes: does the output read as if the target author
+      wrote it natively, or does it read like a translation?
 
 ## Common Pitfalls
 

@@ -1,7 +1,7 @@
 ---
 description:
-  Stylometric document transformer — applies target writing styles to content
-  while preserving factual accuracy
+  Full-service copy editor — generates, edits, rewrites, transforms, and
+  proofreads content with stylometric precision and AI anti-pattern guardrails
 allowed-tools:
   - Read
   - Write
@@ -10,13 +10,14 @@ allowed-tools:
   - Grep
   - WebFetch
   - Bash
-argument-hint: <style> <source> <output> [narrative direction...]
+argument-hint: <style> [source] <output> [narrative direction...]
 ---
 
 # Copy Editor Command
 
-Transform a document's voice by applying a target stylometric profile while
-preserving factual accuracy and core meaning.
+Full-service copy editing: generate new text, edit existing copy, rewrite and
+transform voice, or proofread — all with stylometric precision and guardrails
+against detectable AI writing patterns.
 
 ## Input Parameters
 

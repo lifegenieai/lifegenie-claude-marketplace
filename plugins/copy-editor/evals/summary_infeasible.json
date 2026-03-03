@@ -1,0 +1,29 @@
+{
+  "total_infeasible": 6,
+  "infeasible_scenarios": [
+    {
+      "instruction": "Detect operating mode automatically from arguments and context",
+      "reasoning": "Mode detection is a behavioral classification that cannot be verified from output alone. The eval can only check whether the correct mode was applied, not the detection logic itself."
+    },
+    {
+      "instruction": "Do not output the stylometric profile unless explicitly requested",
+      "reasoning": "This is a negative behavioral constraint (absence of output). The eval sandbox grades final files, not conversation output. A scenario would need to verify the absence of profile output in conversation, which is not observable from file artifacts."
+    },
+    {
+      "instruction": "Read the source document completely before beginning analysis",
+      "reasoning": "This is a process observation about tool call ordering. The eval sandbox grades output files, not agent execution logs or tool call sequences."
+    },
+    {
+      "instruction": "Consult references/stylometric-framework.md for analysis dimensions",
+      "reasoning": "Whether the agent read a specific reference file is a behavioral observation not verifiable from output. The effect of consulting it is tested indirectly by checking output quality."
+    },
+    {
+      "instruction": "Follow references/transformation-methodology.md for systematic style application",
+      "reasoning": "Same as above -- whether the agent read the methodology file is not observable from output. The methodology's effect is tested indirectly through transformation quality criteria."
+    },
+    {
+      "instruction": "Transform inside-out: paragraph architecture first, then sentence structure, then rhetorical patterns, then lexical register, then surface polish",
+      "reasoning": "The order in which the agent applies transformation steps is a process constraint not observable from the final output. A well-transformed document could result from any order."
+    }
+  ]
+}

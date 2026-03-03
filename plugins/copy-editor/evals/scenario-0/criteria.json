@@ -1,0 +1,81 @@
+{
+  "context": "Tests basic Transform mode with a named style. The source is intentionally seeded with AI anti-patterns. Verifies named style resolution, voice transformation, anti-pattern remediation, factual preservation, and quality gate execution.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Named style resolved",
+      "description": "The output reflects the narrative-technologist voice: warm, story-driven technical writing that leads with human experience. The prose should feel personal and concrete rather than abstract and clinical.",
+      "max_score": 10
+    },
+    {
+      "name": "Output file created",
+      "description": "A file named output.md exists and contains the transformed content",
+      "max_score": 5
+    },
+    {
+      "name": "Contrastive negation fixed",
+      "description": "The 'Not just a process. A philosophy.' pattern is rewritten as a direct statement",
+      "max_score": 5
+    },
+    {
+      "name": "Parallel binary fixed",
+      "description": "The 'Where manual review gives you depth, automated review gives you speed' mirrored clause is rewritten without structural parallelism",
+      "max_score": 5
+    },
+    {
+      "name": "Self-answering fragments fixed",
+      "description": "The 'The result? Better software. The best part? It's essentially free.' patterns are rewritten without fake rhetorical tension",
+      "max_score": 5
+    },
+    {
+      "name": "AI vocabulary cleaned",
+      "description": "Words from the contamination list are removed or replaced: 'crucial', 'serves as', 'leverage', 'navigate the landscape'",
+      "max_score": 8
+    },
+    {
+      "name": "Copula avoidance fixed",
+      "description": "'Serves as a cornerstone' is replaced with a simpler construction using 'is' or a direct verb",
+      "max_score": 5
+    },
+    {
+      "name": "Preamble removed",
+      "description": "'In this article, we'll explore' is removed or rewritten as direct narrative",
+      "max_score": 5
+    },
+    {
+      "name": "Hedging removed",
+      "description": "'It's worth noting that' and 'Interestingly enough' are deleted or rewritten without the hedge",
+      "max_score": 5
+    },
+    {
+      "name": "Parenthetical em-dashes fixed",
+      "description": "The paired em-dash asides ('which has been around for decades' and 'often overlooked by fast-moving teams') are rewritten using commas or parentheses",
+      "max_score": 5
+    },
+    {
+      "name": "False range fixed",
+      "description": "'From junior developers to seasoned architects' is replaced with specific audience targeting",
+      "max_score": 5
+    },
+    {
+      "name": "Low burstiness improved",
+      "description": "The uniformly-structured paragraph ('First... Then... After that... Finally...') is rewritten with varied sentence lengths",
+      "max_score": 7
+    },
+    {
+      "name": "Factual claims preserved",
+      "description": "The claim that code review catches 60% of defects is preserved in the output",
+      "max_score": 8
+    },
+    {
+      "name": "No Unicode giveaways",
+      "description": "Output contains no curly quotes, horizontal ellipsis characters, or en dashes -- only plain ASCII",
+      "max_score": 5
+    },
+    {
+      "name": "Summary provided",
+      "description": "The skill provides a brief summary mentioning: mode used (Transform), voice shift description, and count of anti-patterns caught",
+      "max_score": 7
+    }
+  ]
+}

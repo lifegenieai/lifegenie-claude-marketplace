@@ -1,0 +1,71 @@
+{
+  "context": "Tests style extraction from a reference document (not a named style or inline description). The reference has a distinctive voice: specific anecdotes, dry humor, first-person, short-long sentence rhythm, technical precision. The source is a corporate memo full of AI patterns. Tests whether the skill can extract the voice profile and apply it while preserving all factual data.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Voice extracted from reference",
+      "description": "The output reads like the author of reference-voice.md wrote it: first-person perspective, specific over general, dry humor present, technical precision without corporate abstraction",
+      "max_score": 12
+    },
+    {
+      "name": "Sentence rhythm matches reference",
+      "description": "The output has varied sentence lengths matching the reference pattern: short declarative sentences mixed with longer complex ones. Not uniform medium-length sentences.",
+      "max_score": 8
+    },
+    {
+      "name": "AI vocabulary cleaned",
+      "description": "Corporate AI vocabulary from the source is replaced: 'leveraged', 'cutting-edge', 'streamline', 'robust', 'seamless', 'serves as the backbone', 'transformative', 'navigated the landscape', 'fostering', 'pivotal', 'groundbreaking', 'showcasing', 'harness', 'plays a significant role in shaping'",
+      "max_score": 8
+    },
+    {
+      "name": "Copula avoidance fixed",
+      "description": "'serves as the backbone' is replaced with 'is' or a direct construction",
+      "max_score": 5
+    },
+    {
+      "name": "Preamble and hedging removed",
+      "description": "'It is important to note that' and similar hedges from the source are removed",
+      "max_score": 5
+    },
+    {
+      "name": "False range fixed",
+      "description": "'From our platform team to our application developers' false-inclusivity range is replaced with specific language",
+      "max_score": 5
+    },
+    {
+      "name": "Deployment frequency preserved",
+      "description": "The exact metric 'from weekly to 12x daily' appears in the output",
+      "max_score": 7
+    },
+    {
+      "name": "Recovery time preserved",
+      "description": "The exact metric '4 hours to 18 minutes' appears in the output",
+      "max_score": 7
+    },
+    {
+      "name": "Cost reduction preserved",
+      "description": "The exact metric '34%' infrastructure cost reduction appears in the output",
+      "max_score": 7
+    },
+    {
+      "name": "Concrete specificity over abstraction",
+      "description": "Abstract corporate phrases like 'operational excellence' and 'container orchestration challenges' are replaced with concrete, specific language in the reference author's style",
+      "max_score": 8
+    },
+    {
+      "name": "Direct verbs over inflated ones",
+      "description": "The output uses 'is', 'has', 'was' instead of 'serves as', 'stands as', 'boasts'. Simple verbs throughout.",
+      "max_score": 5
+    },
+    {
+      "name": "No fabricated experience",
+      "description": "Personal anecdotes in the output (if any) are clearly framed as the kind of thing the reference author would say, not fabricated specific memories that never happened",
+      "max_score": 5
+    },
+    {
+      "name": "Summary provided",
+      "description": "The skill provides a brief summary mentioning the style extraction, voice shift, and anti-pattern count",
+      "max_score": 5
+    }
+  ]
+}

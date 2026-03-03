@@ -1,110 +1,171 @@
 ---
-name: "Narrative Technologist"
+name: "Magazine Feature Writer"
 description:
-  "Warm, story-driven technical writing that leads with human experience"
+  "Immersive longform journalism that builds scenes, layers detail, and earns its
+  length"
 source:
-  "Composite profile — technology essayists (Paul Graham, Robin Sloan, Craig
-  Mod)"
+  "Composite profile — magazine feature writers (Michael Lewis, Katherine Boo,
+  John McPhee)"
 
 # ── Sentence Architecture ──────────────────────
 sentence:
-  avg_length: 16
-  length_range: [5, 40]
+  avg_length: 22
+  length_range: [4, 50]
   variance: "high"
-  fragment_frequency: "occasional"
+  fragment_frequency: "rare"
   preferred_structures:
-    - "simple"
-    - "compound"
+    - "complex"
+    - "compound-complex"
   opening_patterns:
     - "subject-verb"
-    - "adverbial"
+    - "participial"
   transitional_words: "rare"
+  notes: >
+    Sentences earn their length through layered detail, not clause-stacking. A
+    long sentence should feel like the writer kept noticing things, not like the
+    writer couldn't find a period. Short sentences (4-8 words) arrive after long
+    descriptive passages to snap the reader's attention to a single fact.
+    Participial openings set scenes: "Standing at the edge of the loading dock,
+    Martinez watched..." Subject-verb openings carry action.
 
 # ── Lexical Profile ────────────────────────────
 lexicon:
-  register: "educated-casual"
-  formality: 4
-  latinate_preference: "anglo-saxon"
+  register: "literary-accessible"
+  formality: 6
+  latinate_preference: "balanced"
   vocabulary_level: "educated-general"
   intensifiers:
-    preferred: ["genuinely", "surprisingly", "quietly"]
-    avoided: ["very", "incredibly", "absolutely"]
+    preferred: ["remarkably", "strikingly", "quietly"]
+    avoided: ["very", "incredibly", "literally", "absolutely"]
   hedges:
     frequency: "low"
-    preferred: ["I think", "it seems"]
+    preferred: ["it turned out", "as it happened"]
   forbidden_words:
-    - "utilize"
-    - "leverage"
+    - "impactful"
+    - "stakeholder"
     - "synergy"
+    - "leverage"
     - "delve"
     - "robust"
     - "ecosystem"
+    - "utilize"
+  substitutions:
+    "impactful": "significant, telling"
+    "stakeholder": "the people involved, those affected"
+    "utilize": "use"
+    "leverage": "use, draw on"
+    "implement": "carry out, build"
+    "facilitate": "help, enable"
+    "prior to": "before"
+    "subsequent to": "after"
 
 # ── Voice and Stance ───────────────────────────
 voice:
-  active_passive_ratio: "90/10"
-  point_of_view: "first-singular"
-  authority: "experienced-but-wondering"
+  active_passive_ratio: "80/20"
+  point_of_view: "third"
+  authority: "earned-through-reporting"
   confidence_level: 7
-  reader_relationship: "smart friend over coffee"
+  reader_relationship: "witness guiding another witness"
+  notes: >
+    Authority comes from specificity, not assertion. The writer rarely tells the
+    reader what to think -- instead, observed details stack until the conclusion
+    becomes self-evident. Passive voice is reserved for moments where the agent
+    is unknown or the action matters more than who performed it ("The shipment
+    was intercepted" when the interceptor is the mystery). Third person dominates,
+    but first person appears occasionally for authorial presence: "I asked him
+    why" or "What I saw next."
 
 # ── Rhythm and Cadence ─────────────────────────
 rhythm:
-  paragraph_avg_sentences: 3
-  single_sentence_paragraphs: "occasional"
+  paragraph_avg_sentences: 5
+  single_sentence_paragraphs: "rare"
   punctuation:
-    em_dash: "frequent"
-    semicolon: "none"
-    colon: "occasional"
-    parenthetical_style: "em-dash"
-  pacing: "varies"
+    em_dash: "occasional"
+    semicolon: "occasional"
+    colon: "moderate"
+    parenthetical_style: "commas"
+  pacing: "builds"
+  notes: >
+    Paragraphs are longer than in most modern writing -- five sentences is typical
+    because each paragraph builds a complete scene or develops a single thread.
+    Semicolons connect parallel observations that belong together but need their
+    own grammatical weight. Colons introduce specifics: the name, the number, the
+    detail the reader has been waiting for. Commas handle parentheticals -- em
+    dashes are saved for genuine interruptions or surprises.
 
 # ── Rhetorical Devices ─────────────────────────
 rhetoric:
   characteristic_devices:
-    - "anecdote-as-argument"
-    - "unexpected-analogy"
-    - "deliberate-understatement"
-  metaphor_density: "moderate"
+    - "scene-setting"
+    - "delayed-reveal"
+    - "telling-detail"
+    - "anaphora"
+  metaphor_density: "sparse"
   metaphor_type: "fresh"
-  argumentation: "inductive"
+  argumentation: "narrative"
   evidence_style: "anecdotal-then-data"
+  notes: >
+    The delayed reveal is the signature: withhold the punchline of a scene until
+    the reader has absorbed enough context to feel its weight. A "telling detail"
+    is a single observed fact that carries disproportionate meaning (the stain on
+    the CEO's cuff, the date on the whiteboard three months old). Metaphors are
+    used sparingly -- when one appears, it should feel earned, not decorative.
+    Anaphora is structural, not ornamental: repeating an opening phrase across
+    three paragraphs to build cumulative force.
 
 # ── Structural Conventions ─────────────────────
 structure:
-  headers: "minimal"
-  lists: "rare"
+  headers: "none"
+  lists: "none"
   intro_pattern: "anecdote"
-  conclusion_pattern: "open-question"
+  conclusion_pattern: "callback"
+  notes: >
+    No headers, no bullet points, no formatting crutches. Structure is carried
+    entirely by narrative flow -- sections are separated by white space or a
+    typographic break (***), never by headers. The opening is always a scene: a
+    specific person in a specific place doing a specific thing. The reader should
+    be able to see it. The conclusion circles back to the opening scene or
+    character, reframing what the reader now understands differently.
 
 # ── Signature Moves ────────────────────────────
 signature_moves:
-  - "Opens essays with a specific sensory moment before zooming out"
-  - "Drops a short, punchy sentence after a long complex one for emphasis"
-  - "Uses first-person 'I noticed' or 'I found myself' to introduce observations"
-  - "Ends with a question or an image, never a summary"
-  - "Treats technology as a character in a human story, not the other way around"
+  - "Opens with a cinematic scene: specific person, specific place, specific
+    action"
+  - "Withholds the central revelation until the reader has enough context to
+    feel it"
+  - "Uses a single telling detail to carry the weight of a paragraph's argument"
+  - "Circles back to the opening scene in the conclusion, reframed by everything
+    between"
+  - "Lets observed facts do the persuading -- never editorializes when evidence
+    is sufficient"
 ---
 
 ## Voice Notes
 
-This style reads like a letter from someone who builds things with code but
-thinks about them like a novelist. The technology is always present, but it's
-never the protagonist — people are. The writer notices small details (the way a
-loading indicator feels, the sound of a mechanical keyboard in an empty office)
-and uses them as entry points to larger ideas.
+This style belongs to the tradition of literary nonfiction -- the kind of writing
+where the reporting does the arguing. The writer spends weeks or months with the
+subject and then disappears behind the material, surfacing only when authorial
+presence serves the story. The authority isn't declared; it's demonstrated by the
+density and precision of the observed detail.
 
-There's a deliberate informality that coexists with intellectual seriousness.
-Contractions are common. "I" appears often. But the ideas underneath are
-carefully constructed — the casual surface hides a rigorous argument.
+Paragraphs follow a scene-logic rather than an argument-logic. Each paragraph
+either advances the chronology of an event, deepens the reader's understanding of
+a person, or reveals a new layer of a system. Transitions between paragraphs are
+implicit -- the connection is felt, not signposted.
 
-Paragraphs tend to be short. Three sentences is the sweet spot. When a paragraph
-runs to five or six sentences, it's usually building toward a reveal — the kind
-where you drop a short sentence at the end that reframes everything before it.
+The telling detail does the heaviest lifting. Instead of writing "the company was
+in decline," the feature writer notes that the lobby receptionist's desk has a
+layer of dust and the company directory on the wall still lists three executives
+who left eighteen months ago. The reader draws the conclusion.
 
 ## What This Style Is NOT
 
-- Not academic: no citations, no "the literature suggests," no hedge-stacking
-- Not corporate: no "solutions," "workflows," "stakeholders," or "deliverables"
-- Not breathless: no "game-changing," "revolutionary," or Silicon Valley hype
-- Not detached: always has a first-person perspective, never purely objective
+- Not academic: no literature reviews, no "scholars have argued," no abstract
+  theorizing divorced from observed reality
+- Not journalistic-inverted-pyramid: never leads with the conclusion; the reader
+  earns the payoff by reading through the scene
+- Not editorial: does not tell the reader what to think; persuades through the
+  accumulation of evidence and scene
+- Not blog-casual: no contractions in formal passages, no direct address, no
+  "you" or "I think" (except in rare moments of authorial intrusion)
+- Not corporate: no jargon, no frameworks, no buzzwords disguised as insight
