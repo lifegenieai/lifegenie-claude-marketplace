@@ -104,6 +104,17 @@
       "source": "./plugins/copy-editor",
       "category": "writing",
       "tags": ["copy-editing", "stylometry", "ghostwriting", "voice-matching", "writing-style", "transformation"]
+    },
+    {
+      "name": "nano-banana",
+      "description": "AI image generation CLI powered by Gemini 3.1 Flash and Pro with multi-resolution (512-4K), transparent assets, reference images, and cost tracking",
+      "version": "2.0.0",
+      "author": {
+        "name": "Bootoshi"
+      },
+      "source": "./plugins/nano-banana",
+      "category": "creative",
+      "tags": ["image-generation", "ai", "gemini", "pixel-art", "green-screen", "style-transfer", "nano-banana"]
     }
   ]
 }
