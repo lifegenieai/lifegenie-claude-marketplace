@@ -636,7 +636,7 @@ async function generateImage(options: Options): Promise<string[]> {
           const web = c.web;
           const img = c.image;
           const domain = web?.title || img?.domain || "";
-          const title = img?.title?.replace(/<[^>]*>/g, "") || "";
+          const title = img?.title?.replace(/<[^>]*>/g, "").replace(/&#\d+;/g, (m) => { const n = parseInt(m.slice(2, -1)); return String.fromCharCode(n); }) || "";
           const label = title || domain || "unknown";
           console.log(`    \x1b[90m- ${label}\x1b[0m`);
         }
