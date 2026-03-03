@@ -6,11 +6,5 @@
     "name": "Bootoshi",
     "url": "https://github.com/kingbootoshi"
   },
-  "contributors": [
-    {
-      "name": "Erik B",
-      "role": "Plugin adaptation"
-    }
-  ],
   "keywords": ["image-generation", "ai", "gemini", "pixel-art", "green-screen", "style-transfer", "nano-banana"]
 }
