@@ -1,6 +1,6 @@
 # Nano Banana - AI Image Generation Plugin
 
-AI image generation CLI powered by Gemini 3.1 Flash (default) and Gemini 3 Pro. Multi-resolution (512-4K), aspect ratios, cost tracking, green screen transparency, reference images, and style transfer.
+AI image generation CLI powered by Gemini 3.1 Flash (default) and Gemini 3 Pro. Multi-resolution (512-4K), aspect ratios, cost tracking, green screen transparency, reference images, style transfer, and Google Search grounding (web + image search).
 
 **Original**: [kingbootoshi/nano-banana-2-skill](https://github.com/kingbootoshi/nano-banana-2-skill) by [Bootoshi](https://github.com/kingbootoshi)
 
@@ -57,6 +57,7 @@ Just describe what you want:
 | Reference images     | Edit existing images or combine styles                             |
 | Transparent assets   | Green screen → FFmpeg colorkey → clean PNG with transparency       |
 | Cost tracking        | Automatic per-generation cost logging with `--costs` summary       |
+| Search grounding     | Web + image search grounding for real-world accuracy (Flash only)  |
 
 ## Components
 

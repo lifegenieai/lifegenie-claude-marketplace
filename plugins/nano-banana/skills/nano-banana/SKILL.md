@@ -49,14 +49,15 @@ bun run "${CLAUDE_PLUGIN_ROOT}/tools/cli.ts" "prompt" [options]
 | `-r, --ref`       | -                    | Reference image (can use multiple times)               |
 | `-t, --transparent`| -                   | Generate on green screen, remove background (FFmpeg)   |
 | `--api-key`       | -                    | Gemini API key (overrides env/file)                    |
+| `--no-search`     | -                    | Disable Google Search grounding                        |
 | `--costs`         | -                    | Show cost summary                                      |
 
 ## Models
 
 | Alias           | Model                        | Use When                                  |
 |-----------------|------------------------------|-------------------------------------------|
-| `flash`, `nb2`  | Gemini 3.1 Flash             | Default. Fast, cheap (~$0.067/1K image)   |
-| `pro`, `nb-pro` | Gemini 3 Pro                 | Highest quality needed (~$0.134/1K image) |
+| `flash`, `nb2`  | Gemini 3.1 Flash             | Default. Fast, cheap (~$0.067/1K image). Supports image search grounding |
+| `pro`, `nb-pro` | Gemini 3 Pro                 | Highest quality needed (~$0.134/1K image). Web search grounding only     |
 
 ## Sizes and Costs
 
@@ -126,6 +127,18 @@ bun run "${CLAUDE_PLUGIN_ROOT}/tools/cli.ts" "pixel art character in style of fi
 - First reference: primary style/content source
 - Additional references: secondary influences
 - Last reference: controls output dimensions (if using blank image trick)
+
+### Search Grounding (Flash only)
+
+Flash model automatically uses Google Search (web + image) to ground generated images in real-world references. The output shows which queries and sources were used. Disable with `--no-search` if not needed.
+
+```bash
+# Grounding helps with real-world subjects - the model searches for visual references
+bun run "${CLAUDE_PLUGIN_ROOT}/tools/cli.ts" "the Golden Gate Bridge at sunset" -a 16:9 -s 2K
+
+# Disable grounding for purely creative/abstract prompts
+bun run "${CLAUDE_PLUGIN_ROOT}/tools/cli.ts" "abstract geometric pattern" --no-search
+```
 
 ## Cost Tracking
 

@@ -94,6 +94,7 @@ interface Options {
   apiKey: string | undefined;
   model: string;
   aspectRatio: string | undefined;
+  noSearch: boolean;
 }
 
 interface CostEntry {
@@ -370,6 +371,7 @@ Default: Gemini 3.1 Flash Image Preview (Nano Banana 2)
   -r, --ref         Reference image(s) - can use multiple times
   -t, --transparent Generate on green screen, then remove background (FFmpeg colorkey + despill)
   --api-key         Gemini API key (overrides env/file)
+  --no-search       Disable Google Search grounding (default: enabled for Flash)
   --costs           Show cost summary from generation history
   -h, --help        Show this help
 
@@ -425,6 +427,7 @@ Default: Gemini 3.1 Flash Image Preview (Nano Banana 2)
     apiKey: undefined,
     model: DEFAULT_MODEL,
     aspectRatio: undefined,
+    noSearch: false,
   };
 
   let i = 0;
@@ -459,6 +462,8 @@ Default: Gemini 3.1 Flash Image Preview (Nano Banana 2)
       options.transparent = true;
     } else if (arg === "--api-key") {
       options.apiKey = args[++i];
+    } else if (arg === "--no-search") {
+      options.noSearch = true;
     } else if (!arg.startsWith("-")) {
       options.prompt = arg;
     }
@@ -509,14 +514,27 @@ async function generateImage(options: Options): Promise<string[]> {
     imageConfig.aspectRatio = options.aspectRatio;
   }
 
+  const modelName = options.model;
+  const isFlash = modelName.includes("flash");
+
+  // Build tools config: Flash gets imageSearch grounding, Pro gets basic web search
+  const tools = options.noSearch
+    ? []
+    : [
+        {
+          googleSearch: isFlash
+            ? { searchTypes: { webSearch: {}, imageSearch: {} } }
+            : {},
+        },
+      ];
+
   const config = {
     responseModalities: ["IMAGE", "TEXT"] as const,
     imageConfig,
-    tools: [{ googleSearch: {} }],
+    tools,
   };
 
-  const modelName = options.model;
-  const shortName = modelName.includes("flash")
+  const shortName = isFlash
     ? "Nano Banana 2 (Flash 3.1)"
     : modelName.includes("pro")
       ? "Nano Banana Pro"
@@ -526,6 +544,9 @@ async function generateImage(options: Options): Promise<string[]> {
   console.log(`\x1b[90mModel: ${shortName}\x1b[0m`);
   console.log(`\x1b[90mPrompt: ${options.prompt}\x1b[0m`);
   console.log(`\x1b[90mSize: ${options.size}${options.aspectRatio ? ` | Aspect: ${options.aspectRatio}` : ""}\x1b[0m`);
+  if (!options.noSearch) {
+    console.log(`\x1b[90mGrounding: ${isFlash ? "web + image search" : "web search"}\x1b[0m`);
+  }
 
   if (options.referenceImages.length > 0) {
     console.log(
@@ -593,6 +614,28 @@ async function generateImage(options: Options): Promise<string[]> {
         fileIndex++;
       } else if (part.text) {
         console.log(`\x1b[90m${part.text}\x1b[0m`);
+      }
+    }
+  }
+
+  // Log grounding metadata if available
+  const grounding = response.candidates?.[0]?.groundingMetadata;
+  if (grounding) {
+    const gm = grounding as Record<string, unknown>;
+    const queries = (gm.imageSearchQueries || gm.webSearchQueries || []) as string[];
+    const chunks = (gm.groundingChunks || []) as Array<Record<string, unknown>>;
+    if (queries.length > 0 || chunks.length > 0) {
+      console.log(`\n\x1b[36m[nano-banana]\x1b[0m Search grounding:`);
+      if (queries.length > 0) {
+        console.log(`  \x1b[90mQueries: ${queries.join(", ")}\x1b[0m`);
+      }
+      if (chunks.length > 0) {
+        console.log(`  \x1b[90mSources (${chunks.length}):\x1b[0m`);
+        for (const chunk of chunks.slice(0, 5)) {
+          const web = chunk.web as Record<string, string> | undefined;
+          const url = web?.uri || (chunk.uri as string) || "";
+          if (url) console.log(`    \x1b[90m- ${url}\x1b[0m`);
+        }
       }
     }
   }

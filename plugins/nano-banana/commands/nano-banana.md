@@ -27,6 +27,9 @@ arguments:
   - name: ref
     description: "Path to reference image(s) for style transfer or editing"
     required: false
+  - name: no-search
+    description: "Disable Google Search grounding (enabled by default for Flash)"
+    required: false
 ---
 
 # /nano-banana - Generate AI Images
@@ -63,6 +66,7 @@ Parse the command arguments:
 - `$ARGUMENTS.output` - Output filename
 - `$ARGUMENTS.transparent` - Transparent background
 - `$ARGUMENTS.ref` - Reference image path
+- `$ARGUMENTS.no-search` - Disable search grounding
 
 ### 2. Gather Missing Required Information
 
@@ -111,7 +115,8 @@ bun run "${CLAUDE_PLUGIN_ROOT}/tools/cli.ts" "USER_PROMPT" \
   [-o OUTPUT_NAME] \
   [-d OUTPUT_DIR] \
   [-r REFERENCE_IMAGE] \
-  [-t]
+  [-t] \
+  [--no-search]
 ```
 
 ### 6. Report Results
@@ -119,6 +124,7 @@ bun run "${CLAUDE_PLUGIN_ROOT}/tools/cli.ts" "USER_PROMPT" \
 After completion, report:
 - Output file path and size
 - Estimated cost
+- Search grounding sources (if any were used)
 - Suggest next steps (edit with reference, try different size, etc.)
 
 ## Example Flows
@@ -157,8 +163,8 @@ After completion, report:
 
 | Alias           | Model              | Cost/1K | Best For                 |
 |-----------------|--------------------|---------|--------------------------|
-| `flash`, `nb2`  | Gemini 3.1 Flash   | ~$0.067 | Speed, volume, iteration |
-| `pro`, `nb-pro` | Gemini 3 Pro       | ~$0.134 | Final quality, complex   |
+| `flash`, `nb2`  | Gemini 3.1 Flash   | ~$0.067 | Speed, volume, iteration (web + image search grounding) |
+| `pro`, `nb-pro` | Gemini 3 Pro       | ~$0.134 | Final quality, complex (web search grounding only)      |
 
 ## Important Notes
 
@@ -166,3 +172,5 @@ After completion, report:
 - For transparent mode, user needs FFmpeg + ImageMagick installed
 - Reference images must exist at the specified path - verify before running
 - Cost tracking is automatic - user can check with `--costs` flag
+- Flash model uses Google Search grounding (web + image search) by default for real-world accuracy
+- Use `--no-search` to disable grounding for abstract/creative prompts
