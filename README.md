@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧞 LifeGenie Plugin Marketplace
+#  LifeGenie Plugin Marketplace
 
 **Supercharge Claude Code with production-ready plugins**
 
