@@ -1,0 +1,15 @@
+{
+  "name": "search-hub",
+  "version": "2.0.0",
+  "description": "Multi-source search dispatcher that fans out to Tavily, Perplexity, Gemini, and Exa in parallel for cross-provider verification",
+  "author": { "name": "Erik B" },
+  "keywords": [
+    "search",
+    "research",
+    "tavily",
+    "perplexity",
+    "gemini",
+    "exa",
+    "multi-source"
+  ]
+}

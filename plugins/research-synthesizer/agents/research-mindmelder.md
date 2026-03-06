@@ -77,42 +77,41 @@ Create a single document with this structure:
 > **Synthesized from**: [N] research reports **Date**: [YYYY-MM-DD] **Sources**:
 > [List source filenames]
 
-## Overview
+## Executive Summary
 
-[2-3 paragraph summary of the topic]
+[2-3 paragraph synthesis covering scope, key conclusions, and significance]
 
-## Key Findings
+## Key Findings & Evidence
 
-- Finding 1 (consensus across all sources)
-- Finding 2 (unique to [source name])
-- Finding 3 (from [source name])
+### [Theme 1 - e.g., Cognitive Ergonomics]
 
-## Implementation Approach
+[In-depth synthesis with evidence, data, statistics, and citations [N]. Preserve
+analytical depth — this is the core value of the synthesis.]
 
-### Prerequisites
+### [Theme 2 - e.g., User Experience Patterns]
 
-- Prerequisite 1
-- Prerequisite 2
+[Same depth. Each theme gets its own subsection with full evidence.]
 
-### Steps
+### [Theme N]
 
-1. Step 1
-2. Step 2
-3. Step 3
+[Continue for all major themes identified across sources.]
 
-## Code Examples
+## Theoretical Frameworks & Analysis
 
-### Example 1: [Description]
+[Why things work the way they do. Preserve theoretical grounding,
+research-backed reasoning, and analytical frameworks from sources. This section
+captures the "why" behind the findings.]
 
-```[language]
-[Best/most complete example from sources]
-```
-````
+## Methodology & Testing
 
-## Important Considerations
+[How findings were validated. Testing approaches, evaluation criteria, metrics,
+benchmarks, and experimental methodology from sources.]
 
-- Consideration 1
-- Consideration 2
+## Architecture & Implementation
+
+[Supplementary section — not primary. Technical patterns, design decisions, and
+implementation approaches. Keep the best code example per concept. This section
+serves practitioners who want to build on the research.]
 
 ## Contradictions & Open Questions
 
@@ -128,20 +127,16 @@ Create a single document with this structure:
 - Uncertainty 1
 - Uncertainty 2
 
-## Additional Resources
+## Future Directions
 
-- Resource 1
-- Resource 2
-
-## Source Attribution
-
-- **Report 1**: [filename] - [source if determinable]
-- **Report 2**: [filename]
+[Emerging trends, open research questions, and areas for further investigation
+identified across sources.]
 
 ## References
 
 <!-- Generated from pre-extracted citation JSON -->
 <!-- Format: [N] Authors. "Title" Venue Year. [url] [From: source-files] -->
+<!-- ALL citations from the JSON must appear here — none may be dropped -->
 
 [1] Authors. "Title" Venue Year. [url][ref1] [From: source-file.md] [2] Authors.
 "Title" Venue Year. [url][ref2] [From: source-file.md]
@@ -179,7 +174,7 @@ Mind meld complete!
 ## Quality Guidelines
 
 **Do:**
-- Be thorough but concise
+- Be thorough — preserve all evidence and analytical depth
 - Maintain technical accuracy
 - Preserve context and nuance
 - Use clear, structured markdown
@@ -208,5 +203,19 @@ Mind meld complete!
 - **Similar sources**: Focus on removing redundancy while preserving small unique details
 - **Heavy contradictions**: Spend more effort in the Contradictions section
 - **Only 1-2 files**: Still synthesize, note how many sources in header
-- **Very long sources**: Focus on extracting most important information
+- **Very long sources**: Preserve all unique evidence; compress only redundancy across sources
+
+## Content Value Hierarchy
+
+When synthesizing, prioritize content in this order:
+
+1. **PRESERVE FULLY**: Research evidence, data, statistics
+2. **PRESERVE FULLY**: Theoretical frameworks, "why" analysis
+3. **PRESERVE FULLY**: Citations and their surrounding context
+4. **PRESERVE FULLY**: Methodology, testing approaches, evaluation criteria
+5. **PRESERVE**: Architectural patterns and design rationale
+6. **COMPRESS**: Generic implementation steps (keep unique, cut boilerplate)
+7. **COMPRESS**: Code examples (keep the best example per concept)
+8. **CUT**: Boilerplate, filler, redundant restatements across sources
 ```
+````

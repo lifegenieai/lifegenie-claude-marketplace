@@ -111,7 +111,11 @@ Optimize the following markdown file for LLM consumption.
 
 **File to optimize**: [output file path from mindmelder]
 **Topic**: [topic name]
-**Max token limit**: 10000
+**Content type**: research-synthesis
+
+This is a research synthesis document — preserve all evidence, data, citations,
+theoretical frameworks, and analytical depth. Do NOT apply a token ceiling.
+Only compress filler, redundant transitions, and formatting waste.
 
 Read the file, apply optimization best practices, and overwrite with optimized version.
 ```

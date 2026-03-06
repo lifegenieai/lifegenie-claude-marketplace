@@ -51,7 +51,8 @@ This file will be loaded alongside multiple other files, system prompts, tools,
 and message history. Every token consumes shared attention budget. Files compete
 for approximately 30K total context budget.
 
-**Goal**: Maximize information per token ratio, NOT comprehensiveness.
+**Goal**: Maximize information per token ratio. For research synthesis content,
+comprehensiveness IS information — preserve analytical depth and evidence.
 
 ## Process
 
@@ -70,7 +71,20 @@ Determine mode:
 - **Light** (< 3,000 tokens): Minimal changes
 - **Standard** (3,000-6,000 tokens): Compress to 3-4K range
 - **Aggressive** (6,000-10,000 tokens): Compress to <6K
+- **Research** (any size, when research content detected): Preserve-first
+  optimization
 - **Split** (>= 10,000 tokens): Recommend file splitting
+
+**Content-type detection** — Override to Research Mode if ANY of these are true:
+
+1. Prompt contains `**Content type**: research-synthesis`
+2. Document title contains "Mind Meld" or "Research Mind Meld"
+3. Document has a `## References` section with 5+ citation entries
+4. Document has evidence-style sections (e.g., "Key Findings & Evidence",
+   "Theoretical Frameworks", "Methodology")
+
+If Research Mode is detected, use it regardless of token count (skip Split mode
+too).
 
 ### Step 2: Apply Optimization
 
@@ -106,6 +120,41 @@ Extreme compression:
 - Remove ALL filler words
 - Maximum density format
 - **PROTECT: ## References section** - never compress or remove citations
+
+#### Research Mode (content-type: research-synthesis)
+
+Preserve-first optimization for research synthesis documents:
+
+**PROTECT (never compress or restructure):**
+
+- All evidence, data, statistics, and quantitative findings
+- Theoretical frameworks and analytical reasoning
+- Methodology, testing approaches, and evaluation criteria
+- All citations and their surrounding context
+- The `## References` section in its entirety
+
+**COMPRESS (light touch only):**
+
+- Filler words ("very", "really", "actually", "basically", "essentially")
+- Redundant transition phrases between sections
+- Formatting waste (excessive blank lines, decorative separators)
+- Duplicate statements that say the same thing in different words
+
+**DO NOT:**
+
+- Convert research prose to tables (tables lose analytical nuance)
+- Apply any token ceiling or target token count
+- Remove or consolidate sections from the synthesis template
+- Reduce the number of theme subsections under Key Findings
+- Drop any citations — every citation in the input must appear in the output
+
+**DO:**
+
+- Add YAML frontmatter (title, description, tags, optimization_version: "1.1")
+- Convert inline URLs to reference-style links (saves tokens without losing
+  info)
+- Deduplicate exact-duplicate sentences across sections
+- Tighten verbose phrasing where meaning is fully preserved
 
 #### Split Mode (>= 10,000 tokens)
 

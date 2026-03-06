@@ -1,0 +1,48 @@
+{
+  "skill_name": "search-hub",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Search for the current state of WebGPU browser support in 2026 — which browsers support it, what are the limitations, and is it production-ready yet?",
+      "expected_output": "A multi-source research brief with provider-attributed sections that faithfully reproduce each provider's actual answer, with clear source attribution and a cross-provider signal section identifying high-confidence findings",
+      "files": [],
+      "expectations": [
+        "Results from at least 3 different search providers are presented",
+        "Each provider's findings are clearly labeled/attributed (e.g. 'Google (Gemini)', 'Perplexity', 'Tavily')",
+        "Provider answer fields are reproduced faithfully — not rewritten, summarized, or editorialized",
+        "If a provider returned a specific answer text, that text appears substantially unchanged in the corresponding section",
+        "Source URLs are included for key claims",
+        "There is a Cross-Provider Signal section where synthesis/interpretation happens",
+        "No cross-contamination: information from one provider does not appear in another provider's section"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to understand the latest pricing changes for major cloud GPU providers — AWS, GCP, Azure, and any notable alternatives like Lambda Labs or CoreWeave. What's the current state of GPU cloud pricing?",
+      "expected_output": "Provider-attributed research brief where each provider's answer is reproduced faithfully, not rewritten. Cross-Provider Signal section synthesizes agreements and contradictions.",
+      "files": [],
+      "expectations": [
+        "Results from at least 3 different search providers are presented",
+        "Each provider's findings are clearly labeled/attributed",
+        "Provider answers are reproduced verbatim or near-verbatim — substance, claims, and facts are not altered",
+        "If Tavily returns an answer like 'X costs $Y', the Tavily section contains that same claim, not a reworded version",
+        "There is a Cross-Provider Signal section with synthesis",
+        "Provider sections do not blend information from other providers"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Search for what happened with the recent Anthropic model releases — any new Claude models, what changed, benchmarks, and developer reactions",
+      "expected_output": "Multi-source brief where each provider section faithfully reproduces what that provider actually returned, with synthesis only in the Cross-Provider Signal section",
+      "files": [],
+      "expectations": [
+        "Results from at least 3 different search providers are presented",
+        "Each provider's findings are clearly labeled/attributed",
+        "Provider answer text is reproduced faithfully — not rewritten or editorialized",
+        "If a provider's answer says 'X happened on Y date', that exact claim appears in the provider section",
+        "The Cross-Provider Signal section is the ONLY place where the model adds its own interpretation",
+        "No provider section contains claims sourced from a different provider"
+      ]
+    }
+  ]
+}
