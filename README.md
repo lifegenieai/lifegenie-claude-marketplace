@@ -4,12 +4,13 @@
 
 **Supercharge Claude Code with production-ready plugins**
 
-[![Plugins](https://img.shields.io/badge/plugins-6-blue)](./plugins)
+[![Plugins](https://img.shields.io/badge/plugins-11-blue)](./plugins)
 [![Claude Code](https://img.shields.io/badge/claude--code-compatible-green)](https://claude.ai/claude-code)
 [![License](https://img.shields.io/badge/license-MIT-purple)](./LICENSE)
 
 _A curated collection of plugins that extend Claude Code's capabilities for
-video generation, document optimization, research synthesis, and more._
+search, research, writing, video generation, image creation, voice design, and
+more._
 
 [Quick Start](#-quick-start) • [Plugins](#-plugins) •
 [Installation](#-installation) • [Contributing](#-contributing)
@@ -20,14 +21,19 @@ video generation, document optimization, research synthesis, and more._
 
 ## ✨ What's Inside
 
-| Plugin                                             | Category      | Description                                  | Command        |
-| -------------------------------------------------- | ------------- | -------------------------------------------- | -------------- |
-| [**Video Generator**](#-video-generator)           | Creative      | Generate videos with Google Veo 3.1 API      | `/video`       |
-| [**CLAUDE.md Optimizer**](#-claudemd-optimizer)    | Development   | Audit, optimize, and manage CLAUDE.md files  | `/claudemd`    |
-| [**Research Synthesizer**](#-research-synthesizer) | Writing       | Combine multiple research reports into one   | `/mindmeld`    |
-| [**Markdown Optimizer**](#-markdown-optimizer)     | Utilities     | Compress markdown for LLM context efficiency | `/optimize`    |
-| [**Thinking Partner**](#-thinking-partner)         | Creative      | Collaborative brainstorming and exploration  | Agent-based    |
-| [**Doc-Sync**](#-doc-sync)                         | Documentation | Auto-update docs from git history            | `/update-docs` |
+| Plugin                                                       | Category      | Description                                        | Command         |
+| ------------------------------------------------------------ | ------------- | -------------------------------------------------- | --------------- |
+| [**Search Hub**](#-search-hub)                               | Research      | Multi-source search across 4 providers in parallel | `/search`       |
+| [**Research Coordinator**](#-research-coordinator)           | Research      | Multi-agent research with citation verification    | `/research`     |
+| [**Research Synthesizer**](#-research-synthesizer)           | Writing       | Combine multiple research reports into one         | `/mindmeld`     |
+| [**Copy Editor**](#-copy-editor)                             | Writing       | Stylometric document transformation and editing    | `/copy-editor`  |
+| [**Video Generator**](#-video-generator)                     | Creative      | Generate videos with Google Veo 3.1 API            | `/video`        |
+| [**Nano Banana**](#-nano-banana)                             | Creative      | AI image generation with Gemini Flash and Pro      | `/nano-banana`  |
+| [**ElevenLabs Voice Designer**](#-elevenlabs-voice-designer) | Creative      | Interactive AI voice design wizard                 | `/design-voice` |
+| [**CLAUDE.md Optimizer**](#-claudemd-optimizer)              | Development   | Audit, optimize, and manage CLAUDE.md files        | `/claudemd`     |
+| [**Markdown Optimizer**](#-markdown-optimizer)               | Utilities     | Compress markdown for LLM context efficiency       | `/optimize`     |
+| [**Doc-Sync**](#-doc-sync)                                   | Documentation | Auto-update docs from git history                  | `/update-docs`  |
+| [**Thinking Partner**](#-thinking-partner)                   | Creative      | Collaborative brainstorming and exploration        | Agent-based     |
 
 ---
 
@@ -47,69 +53,81 @@ claude --plugin-dir ./lifegenie-claude-marketplace/plugins/video-generator
 
 ## 📦 Plugins
 
-### 🎬 Video Generator
+### 🔍 Search Hub
 
-> **Generate stunning videos using Google's Veo 3.1 API**
+> **Multi-source search that fans out to 4 providers in parallel**
 
-Transform text prompts into high-quality video clips with full control over
-duration, aspect ratio, resolution, and style presets.
+Hit Tavily, Perplexity, Gemini, and Exa simultaneously for every query.
+Cross-referencing what multiple providers surface reveals what's actually
+important versus what's noise.
 
 **Key Features:**
 
-- 🎨 **Style Presets** — Cinematic, vertical-social, product-demo, documentary
-- ⏱️ **Flexible Duration** — 4, 6, or 8 seconds per clip
-- 🔄 **Video Extension** — Extend videos up to 148 seconds in 7-second
-  increments
-- 💰 **Cost Controls** — Automatic estimation and confirmation before generation
-- 📐 **Multiple Formats** — 16:9 (YouTube), 9:16 (TikTok/Reels), 1:1 (Instagram)
+- 🌐 **Parallel Fan-Out** — All available providers searched simultaneously
+- 📊 **Provider-Attributed Results** — Each source's answer reproduced
+  faithfully
+- 🔗 **Cross-Provider Signal** — Synthesis section highlights agreements and
+  contradictions
+- 🎯 **Single-Provider Mode** — Target one provider when explicitly needed
 
 **Usage:**
 
 ```bash
-/video "A cat walking on a beach at sunset"
-/video "Cinematic drone shot" --duration 8 --preset cinematic
+/search "latest TypeScript features"
+/search "compare React vs Svelte" --providers tavily,perplexity
+/search perplexity "quantum computing" --model sonar-pro
+/search --status
 ```
 
-**Pricing:** | Model | Cost/Second | 8s Clip | |-------|-------------|---------|
-| Fast | $0.15 | $1.20 | | Standard | $0.40 | $3.20 |
+**Providers:**
 
-**Requirements:** `GOOGLE_API_KEY` in `~/.claude/.env`
+| Provider   | Strength                        | Cost                |
+| ---------- | ------------------------------- | ------------------- |
+| Gemini     | Google's live index             | Free (OAuth)        |
+| Tavily     | Fast web results, LLM-optimized | Free tier (1000/mo) |
+| Perplexity | Cited synthesis, deep research  | $0.01-$0.15/query   |
+| Exa        | Neural/semantic matching        | ~$0.005/query       |
+
+**Requirements:** API keys in `~/.claude/.env` for Tavily, Perplexity, Exa.
+Gemini uses OAuth via `gemini` CLI. Bun runtime required.
 
 ---
 
-### 📋 CLAUDE.md Optimizer
+### 🔬 Research Coordinator
 
-> **The ultimate toolkit for CLAUDE.md file management**
+> **Comprehensive web research with verified citations**
 
-Audit, optimize, create, migrate, and enforce best practices for your CLAUDE.md
-configuration files.
+A full 7-phase research workflow: scope clarification, research brief, task
+decomposition, dual-source execution (Tavily + Gemini), per-task synthesis,
+final report, and citation verification.
 
 **Key Features:**
 
-- 🔍 **Audit** — Score against a 100-point rubric with actionable
-  recommendations
-- ⚡ **Optimize** — Apply best practices and high-efficiency formats
-  automatically
-- ✨ **Create** — Generate new CLAUDE.md files from templates
-- 🚀 **Migrate** — Update files for Opus 4.5+ behavior patterns
-- 🔒 **Enforce** — Set up hooks and settings for ongoing compliance
+- 📋 **Research Brief** — Standalone scope document with success criteria
+- 🔄 **Dual-Source Execution** — Tavily + Gemini per task for cross-verification
+- ✅ **Citation Verification** — Parallel Haiku agents check URL accessibility
+  and accuracy
+- 📄 **Publication-Ready Output** — Markdown report with verified sources table
 
 **Usage:**
 
 ```bash
-/claudemd audit      # Score and analyze your CLAUDE.md
-/claudemd optimize   # Apply best practices
-/claudemd create     # Generate from scratch
-/claudemd migrate    # Update for Opus 4.5+
+/research "What are current best practices for AI agent architectures?"
+/research
 ```
 
-**Why It Matters:**
+**Search APIs Supported:**
 
-| Constraint           | Limit                           |
-| -------------------- | ------------------------------- |
-| Instruction Budget   | ~100-150 instructions max       |
-| Efficiency Hierarchy | Code > Tables > Bullets > Prose |
-| Target Score         | 75+ (90+ excellent)             |
+| API           | Cost              | Best For        |
+| ------------- | ----------------- | --------------- |
+| Tavily        | $10/1000 searches | LLM-optimized   |
+| SerpAPI       | $50/5000 searches | Raw SERP data   |
+| Brave Search  | Free 2000/month   | Privacy-focused |
+| Google Custom | Free 100/day      | Domain-specific |
+| Gemini CLI    | Free (fallback)   | Always works    |
+
+**Requirements:** Optional API keys in `~/.claude/.env` (`TAVILY_API_KEY`,
+`SERPAPI_KEY`, `BRAVE_API_KEY`, `GOOGLE_API_KEY`). Falls back to Gemini CLI.
 
 ---
 
@@ -147,6 +165,192 @@ contradictions.
 ## Contradictions & Open Questions
 ## Source Attribution
 ```
+
+---
+
+### ✍️ Copy Editor
+
+> **Stylometric document transformation and full-service copy editing**
+
+Applies target writing styles to content while preserving factual accuracy.
+Operates as a senior literary ghostwriter with deep stylometry expertise and AI
+anti-pattern guardrails.
+
+**Key Features:**
+
+- 🎭 **Style Absorption** — Analyze and apply any target voice from files, named
+  profiles, or descriptions
+- 📝 **Five Modes** — Transform, Rewrite, Edit, Generate, Proofread
+- 🛡️ **AI Anti-Patterns** — Detects and removes detectable AI writing
+- 📄 **Flexible Input** — File paths, URLs, or inline content as source
+
+**Usage:**
+
+```bash
+/copy-editor john-roberts ./draft.md ./output.md
+/copy-editor narrative-technologist ./blog-post.md ./restyled.md
+/copy-editor ./brand-voice.md https://example.com/article ./restyled.html
+/copy-editor "terse, declarative" ./verbose.md ./clean.md make accessible to general audience
+```
+
+**Operating Modes:**
+
+| Mode      | When                         | Purpose                              |
+| --------- | ---------------------------- | ------------------------------------ |
+| Transform | Source + style + output      | Apply target voice to source content |
+| Rewrite   | Source + "rewrite" direction | Substantially restructure            |
+| Edit      | Source + "edit" direction    | Grammar/clarity/tone corrections     |
+| Generate  | No source, style + output    | Create new content in target voice   |
+| Proofread | Source + "proofread"         | Grammar/spelling/punctuation only    |
+
+**Named Styles:** `john-roberts` (conversational inevitability),
+`narrative-technologist` (story-driven technical writing). Custom styles via
+YAML profiles.
+
+---
+
+### 🎬 Video Generator
+
+> **Generate stunning videos using Google's Veo 3.1 API**
+
+Transform text prompts into high-quality video clips with full control over
+duration, aspect ratio, resolution, and style presets.
+
+**Key Features:**
+
+- 🎨 **Style Presets** — Cinematic, vertical-social, product-demo, documentary
+- ⏱️ **Flexible Duration** — 4, 6, or 8 seconds per clip
+- 🔄 **Video Extension** — Extend videos up to 148 seconds in 7-second
+  increments
+- 💰 **Cost Controls** — Automatic estimation and confirmation before generation
+- 📐 **Multiple Formats** — 16:9 (YouTube), 9:16 (TikTok/Reels), 1:1 (Instagram)
+
+**Usage:**
+
+```bash
+/video "A cat walking on a beach at sunset"
+/video "Cinematic drone shot" --duration 8 --preset cinematic
+```
+
+**Pricing:**
+
+| Model    | Cost/Second | 8s Clip |
+| -------- | ----------- | ------- |
+| Fast     | $0.15       | $1.20   |
+| Standard | $0.40       | $3.20   |
+
+**Requirements:** `GOOGLE_API_KEY` in `~/.claude/.env`
+
+---
+
+### 🍌 Nano Banana
+
+> **AI image generation powered by Gemini 3.1 Flash and Pro**
+
+Generate images from text prompts with multi-resolution output, aspect ratio
+control, transparent assets, reference images for style transfer, and automatic
+cost tracking.
+
+**Key Features:**
+
+- 🎨 **Two Models** — Flash (fast, cheap) for iteration, Pro for final quality
+- 📐 **Multi-Resolution** — 512px, 1K, 2K, 4K output sizes
+- 🟢 **Transparency** — Green screen to transparent PNG via FFmpeg
+- 🖼️ **Reference Images** — Style transfer and image editing
+- 🔍 **Google Search Grounding** — Web + image search for accurate rendering
+- 💰 **Cost Tracking** — Per-image and session cost summaries
+
+**Usage:**
+
+```bash
+/nano-banana "A sunset over mountains"
+/nano-banana "pixel art robot" --transparent --output robot
+/nano-banana "dashboard UI" -s 2K -a 16:9 -m pro
+```
+
+**Models & Pricing:**
+
+| Model | Alias           | 1K Cost | Best For                      |
+| ----- | --------------- | ------- | ----------------------------- |
+| Flash | `flash`, `nb2`  | ~$0.067 | Speed, volume, iteration      |
+| Pro   | `pro`, `nb-pro` | ~$0.134 | Final quality, complex images |
+
+**Requirements:** `GEMINI_API_KEY` in `~/.nano-banana/.env`. Bun runtime.
+FFmpeg + ImageMagick for transparent mode.
+
+---
+
+### 🎙️ ElevenLabs Voice Designer
+
+> **Interactive wizard for crafting AI voice design prompts**
+
+Guided 8-step wizard that generates 3 distinct prompt variations (Conservative,
+Creative, Experimental) with guidance scale recommendations and preview text for
+each.
+
+**Key Features:**
+
+- 🎭 **8-Step Interview** — Voice type, age, gender, accent, tone, pacing,
+  emotion, audio quality
+- 🎯 **3 Variations** — Conservative, Creative, and Experimental prompt options
+- 📋 **Copy-Paste Ready** — Complete ElevenLabs Voice Design prompts
+- 📚 **22+ Examples** — Technique-organized reference library
+
+**Usage:**
+
+```bash
+/design-voice
+/design-voice narrator
+/design-voice villain
+```
+
+**Guidance Scale Reference:**
+
+| Range   | Style           | Use Case                        |
+| ------- | --------------- | ------------------------------- |
+| 0.0-0.3 | Very natural    | Professional, narrator voices   |
+| 0.3-0.5 | Balanced        | Most character voices           |
+| 0.5-0.7 | More stylized   | Fantasy, exaggerated characters |
+| 0.7-1.0 | Highly stylized | Extreme, experimental voices    |
+
+**Requirements:** No dependencies for prompt generation. ElevenLabs API account
+for actual voice creation.
+
+---
+
+### 📋 CLAUDE.md Optimizer
+
+> **The ultimate toolkit for CLAUDE.md file management**
+
+Audit, optimize, create, migrate, and enforce best practices for your CLAUDE.md
+configuration files.
+
+**Key Features:**
+
+- 🔍 **Audit** — Score against a 100-point rubric with actionable
+  recommendations
+- ⚡ **Optimize** — Apply best practices and high-efficiency formats
+  automatically
+- ✨ **Create** — Generate new CLAUDE.md files from templates
+- 🚀 **Migrate** — Update files for Opus 4.5+ behavior patterns
+- 🔒 **Enforce** — Set up hooks and settings for ongoing compliance
+
+**Usage:**
+
+```bash
+/claudemd audit      # Score and analyze your CLAUDE.md
+/claudemd optimize   # Apply best practices
+/claudemd create     # Generate from scratch
+/claudemd migrate    # Update for Opus 4.5+
+```
+
+**Why It Matters:**
+
+| Constraint           | Limit                           |
+| -------------------- | ------------------------------- |
+| Instruction Budget   | ~100-150 instructions max       |
+| Efficiency Hierarchy | Code > Tables > Bullets > Prose |
+| Target Score         | 75+ (90+ excellent)             |
 
 ---
 
@@ -188,37 +392,6 @@ Token Efficiency Metrics:
 ├─ Reduction: 49%
 └─ Tables created: 8
 ```
-
----
-
-### 💭 Thinking Partner
-
-> **A collaborative intellectual companion for complex exploration**
-
-Not just an information provider—a genuine thinking partner for brainstorming,
-strategic planning, philosophical inquiry, and navigating ambiguous challenges.
-
-**Key Features:**
-
-- 🔍 **Deep Listening** — Understands full context and nuance
-- 🗺️ **Territory Mapping** — Visualizes conceptual landscapes
-- 🔄 **Multiple Perspectives** — Systems thinking, first principles, analogies
-- 💡 **Insight Synthesis** — Crystallizes understanding progressively
-
-**Approach:**
-
-1. Map the territory of ideas
-2. Identify connections and unexplored areas
-3. Balance divergent/convergent thinking
-4. Challenge assumptions constructively
-5. Navigate complexity without forcing conclusions
-
-**Best For:**
-
-- Strategic decision-making
-- Research synthesis and exploration
-- Creative brainstorming sessions
-- Complex problem decomposition
 
 ---
 
@@ -282,6 +455,37 @@ docs/tech-docs/
 
 ---
 
+### 💭 Thinking Partner
+
+> **A collaborative intellectual companion for complex exploration**
+
+Not just an information provider—a genuine thinking partner for brainstorming,
+strategic planning, philosophical inquiry, and navigating ambiguous challenges.
+
+**Key Features:**
+
+- 🔍 **Deep Listening** — Understands full context and nuance
+- 🗺️ **Territory Mapping** — Visualizes conceptual landscapes
+- 🔄 **Multiple Perspectives** — Systems thinking, first principles, analogies
+- 💡 **Insight Synthesis** — Crystallizes understanding progressively
+
+**Approach:**
+
+1. Map the territory of ideas
+2. Identify connections and unexplored areas
+3. Balance divergent/convergent thinking
+4. Challenge assumptions constructively
+5. Navigate complexity without forcing conclusions
+
+**Best For:**
+
+- Strategic decision-making
+- Research synthesis and exploration
+- Creative brainstorming sessions
+- Complex problem decomposition
+
+---
+
 ## 📥 Installation
 
 ### Option 1: Clone and Reference
@@ -308,9 +512,21 @@ claude --plugin-dir /path/to/lifegenie-claude-marketplace/plugins/video-generato
 Some plugins require API keys. Add to `~/.claude/.env`:
 
 ```bash
-# For Video Generator
+# Video Generator, Research Coordinator
 GOOGLE_API_KEY=your-google-api-key
+
+# Search Hub
+TAVILY_API_KEY=tvly-...
+PERPLEXITY_API_KEY=pplx-...
+EXA_API_KEY=...
+
+# Research Coordinator (optional extras)
+SERPAPI_KEY=...
+BRAVE_API_KEY=...
 ```
+
+Nano Banana uses a separate config: `~/.nano-banana/.env` with `GEMINI_API_KEY`.
+Gemini search uses OAuth via the `gemini` CLI (no API key needed).
 
 ---
 
