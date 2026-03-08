@@ -126,6 +126,17 @@
       "source": "./plugins/search-hub",
       "category": "research",
       "tags": ["search", "research", "multi-source", "tavily", "perplexity", "gemini", "exa"]
+    },
+    {
+      "name": "agent-reviewer",
+      "description": "Structural validation and interactive triage for Claude Code agent files",
+      "version": "0.1.0",
+      "author": {
+        "name": "Bootoshi"
+      },
+      "source": "./plugins/agent-reviewer",
+      "category": "development",
+      "tags": ["agents", "validation", "linting", "plugin-dev", "code-quality"]
     }
   ]
 }
