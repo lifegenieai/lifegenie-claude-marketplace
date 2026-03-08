@@ -4,7 +4,7 @@
 
 **Supercharge Claude Code with production-ready plugins**
 
-[![Plugins](https://img.shields.io/badge/plugins-11-blue)](./plugins)
+[![Plugins](https://img.shields.io/badge/plugins-12-blue)](./plugins)
 [![Claude Code](https://img.shields.io/badge/claude--code-compatible-green)](https://claude.ai/claude-code)
 [![License](https://img.shields.io/badge/license-MIT-purple)](./LICENSE)
 
@@ -33,6 +33,7 @@ more._
 | [**CLAUDE.md Optimizer**](#-claudemd-optimizer)              | Development   | Audit, optimize, and manage CLAUDE.md files        | `/claudemd`     |
 | [**Markdown Optimizer**](#-markdown-optimizer)               | Utilities     | Compress markdown for LLM context efficiency       | `/optimize`     |
 | [**Doc-Sync**](#-doc-sync)                                   | Documentation | Auto-update docs from git history                  | `/update-docs`  |
+| [**Agent Reviewer**](#-agent-reviewer)                       | Development   | Validate and fix Claude Code agent files           | `/review-agents`|
 | [**Thinking Partner**](#-thinking-partner)                   | Creative      | Collaborative brainstorming and exploration        | Agent-based     |
 
 ---
@@ -452,6 +453,47 @@ docs/tech-docs/
 ├── reference/                   # Tech stack, scripts
 └── design/                      # Design system
 ```
+
+---
+
+### 🔎 Agent Reviewer
+
+> **Structural validation and interactive triage for Claude Code agent files**
+
+Validates agent `.md` files against the official spec, consolidates findings by
+severity, lets you triage fixes interactively, then applies them. Catches
+missing fields, invalid values, tools-as-strings, misplaced example blocks, and
+more.
+
+**Key Features:**
+
+- 🔍 **Spec-Driven Validation** — Loads the current agent spec at runtime, never
+  validates from stale training data
+- 📊 **Severity Classification** — Critical, Important, Nice-to-have findings
+- 🗳️ **Interactive Triage** — Grouped by issue type so 12 agents missing `color`
+  is one decision, not 12
+- 🔧 **Auto-Fix** — Applies agreed-upon fixes via Edit tool
+
+**Usage:**
+
+```bash
+/review-agents path/to/agents/          # Validate all agents in a directory
+/review-agents path/to/single-agent.md  # Validate a single file
+```
+
+**Checks Performed:**
+
+| Check             | Severity  | Example                              |
+| ----------------- | --------- | ------------------------------------ |
+| Missing `name`    | Critical  | Agent won't register                 |
+| Missing `model`   | Critical  | Agent won't function                 |
+| Tools as string   | Critical  | `tools: "Read,Write"` instead of array |
+| Missing `color`   | Important | No color badge in UI                 |
+| No `<example>` blocks | Important | Poor triggering accuracy         |
+| `model: opus`     | Nice      | Cost justification flag              |
+
+**Requirements:** `plugin-dev` plugin must be installed (provides the
+`agent-development` skill used as the source of truth for field specs).
 
 ---
 
