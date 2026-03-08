@@ -1,0 +1,10 @@
+{
+  "name": "agent-reviewer",
+  "version": "0.1.0",
+  "description": "Structural validation and interactive triage for Claude Code agent files",
+  "author": {
+    "name": "Bootoshi",
+    "url": "https://github.com/kingbootoshi"
+  },
+  "keywords": ["agents", "validation", "linting", "plugin-dev", "code-quality"]
+}

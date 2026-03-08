@@ -1,0 +1,18 @@
+[
+  {"query": "Validate my agents", "should_trigger": true},
+  {"query": "Check this agent file for errors", "should_trigger": true},
+  {"query": "Lint agent files against the spec", "should_trigger": true},
+  {"query": "Review agent configs", "should_trigger": true},
+  {"query": "Are my agent frontmatter fields correct?", "should_trigger": true},
+  {"query": "Check if my agent .md files have valid structure", "should_trigger": true},
+  {"query": "What severity should a missing color field be?", "should_trigger": true},
+  {"query": "Is this agent file structured correctly?", "should_trigger": true},
+  {"query": "Create a new agent for code review", "should_trigger": false},
+  {"query": "Write a plugin with hooks and commands", "should_trigger": false},
+  {"query": "Fix the bug in my React component", "should_trigger": false},
+  {"query": "Run the test suite", "should_trigger": false},
+  {"query": "Commit my changes and push", "should_trigger": false},
+  {"query": "Add a new skill to my plugin", "should_trigger": false},
+  {"query": "Explain how Claude Code agents work", "should_trigger": false},
+  {"query": "Review my pull request for issues", "should_trigger": false}
+]

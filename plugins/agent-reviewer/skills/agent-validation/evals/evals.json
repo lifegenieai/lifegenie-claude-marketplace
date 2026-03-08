@@ -1,0 +1,46 @@
+{
+  "skill_name": "agent-validation",
+  "evals": [
+    {
+      "id": "detect-missing-required-fields",
+      "prompt": "Validate this agent file:\n---\ndescription: \"A helper agent\"\n---\n\nYou help with things.",
+      "expected_output": "The response identifies missing required fields (name, model) as CRITICAL and missing color as IMPORTANT.",
+      "expectations": [
+        "Response flags missing `name` field as CRITICAL",
+        "Response flags missing `model` field as CRITICAL",
+        "Response flags missing `color` field as IMPORTANT",
+        "Response uses the severity definitions from the skill (CRITICAL / IMPORTANT / NICE-TO-HAVE)"
+      ]
+    },
+    {
+      "id": "detect-tools-as-comma-string",
+      "prompt": "Validate this agent file:\n---\nname: my-agent\ndescription: \"Does things\"\nmodel: inherit\ncolor: blue\ntools: \"Read,Write,Edit\"\n---\n\nYou are a helper.",
+      "expected_output": "The response identifies tools as a comma-delimited string instead of a YAML array and flags it as CRITICAL.",
+      "expectations": [
+        "Response flags `tools` field as wrong type — comma-string instead of YAML array",
+        "Response classifies this as CRITICAL severity",
+        "Response suggests converting to a YAML array format"
+      ]
+    },
+    {
+      "id": "detect-description-quality-issues",
+      "prompt": "Validate this agent file:\n---\nname: code-helper\ndescription: \"Helps with code\"\nmodel: inherit\ncolor: green\n---\n\nYou are a code helper.\n\n<example>\nuser: \"Review my code\"\nassistant: \"I'll review your code.\"\n</example>",
+      "expected_output": "The response flags the short description missing example blocks, and flags the example blocks being in the body instead of the description field.",
+      "expectations": [
+        "Response flags description as lacking `<example>` blocks",
+        "Response flags `<example>` blocks in the system prompt body that belong in the description field",
+        "Response classifies these as IMPORTANT severity"
+      ]
+    },
+    {
+      "id": "pass-valid-agent",
+      "prompt": "Validate this agent file:\n---\nname: test-runner\ndescription: \"This skill should be used when the user asks to run tests, execute test suites, or validate test coverage.\n\n<example>\nContext: User completed a feature\nuser: \\\"Run the tests\\\"\nassistant: \\\"I'll run the test suite.\\\"\n</example>\"\nmodel: inherit\ncolor: cyan\ntools:\n  - Bash\n  - Read\n---\n\nYou are a test runner agent. Your role is to execute test suites and report results clearly.",
+      "expected_output": "The response reports the agent as passing with no issues found.",
+      "expectations": [
+        "Response reports zero findings or all checks passing",
+        "Response does NOT flag false positives on valid fields",
+        "Response confirms the agent file is structurally correct"
+      ]
+    }
+  ]
+}
