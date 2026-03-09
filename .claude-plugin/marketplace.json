@@ -137,6 +137,17 @@
       "source": "./plugins/agent-reviewer",
       "category": "development",
       "tags": ["agents", "validation", "linting", "plugin-dev", "code-quality"]
+    },
+    {
+      "name": "linkedin-best-practices-2026",
+      "description": "LinkedIn profile optimization best practices, algorithm insights, and strategy playbook for 2026",
+      "version": "1.0.0",
+      "author": {
+        "name": "Sapient Technology Group, Erik B"
+      },
+      "source": "./plugins/linkedin-best-practices-2026",
+      "category": "knowledge",
+      "tags": ["linkedin", "personal-branding", "profile-optimization", "seo", "social-media", "career", "strategy"]
     }
   ]
 }

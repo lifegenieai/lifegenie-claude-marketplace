@@ -4,7 +4,7 @@
 
 **Supercharge Claude Code with production-ready plugins**
 
-[![Plugins](https://img.shields.io/badge/plugins-12-blue)](./plugins)
+[![Plugins](https://img.shields.io/badge/plugins-13-blue)](./plugins)
 [![Claude Code](https://img.shields.io/badge/claude--code-compatible-green)](https://claude.ai/claude-code)
 [![License](https://img.shields.io/badge/license-MIT-purple)](./LICENSE)
 
@@ -34,6 +34,7 @@ more._
 | [**Markdown Optimizer**](#-markdown-optimizer)               | Utilities     | Compress markdown for LLM context efficiency       | `/optimize`     |
 | [**Doc-Sync**](#-doc-sync)                                   | Documentation | Auto-update docs from git history                  | `/update-docs`  |
 | [**Agent Reviewer**](#-agent-reviewer)                       | Development   | Validate and fix Claude Code agent files           | `/review-agents`|
+| [**LinkedIn Best Practices**](#-linkedin-best-practices-2026) | Knowledge     | LinkedIn profile optimization playbook for 2026    | `/linkedin`     |
 | [**Thinking Partner**](#-thinking-partner)                   | Creative      | Collaborative brainstorming and exploration        | Agent-based     |
 
 ---
@@ -494,6 +495,38 @@ more.
 
 **Requirements:** `plugin-dev` plugin must be installed (provides the
 `agent-development` skill used as the source of truth for field specs).
+
+---
+
+### 💼 LinkedIn Best Practices 2026
+
+> **LinkedIn profile optimization playbook — algorithm, SEO, and content strategy**
+
+A curated knowledge base covering the 2025-2026 algorithm shift, section-by-section
+profile guidance, and exact platform specs. Load it before writing profile content,
+planning strategy, or analyzing an existing profile.
+
+**Key Features:**
+
+- 📊 **Algorithm Insights** — Dwell Time, Depth Score, semantic coherence over engagement farming
+- 📝 **Section Guidance** — Headline, About (4-part framework), Featured, Experience, Skills
+- 📐 **Exact Specs** — Character limits, image dimensions, search ranking weights
+- 🎯 **Content Strategy** — Minimum effective approach for high-authority, low-maintenance profiles
+- 🔍 **SEO** — Keyword placement priorities, Google indexing, custom URL strategy
+
+**Usage:**
+
+```bash
+/linkedin                           # Load knowledge base and get started
+/linkedin Write 3 headline options for a fintech founder
+/linkedin Review my About section
+/linkedin What's the dwell time threshold for second-pass distribution?
+```
+
+**Data Sources:** Richard van der Blom's ~400K profile analysis, 2026 platform
+documentation, and cross-source research synthesis.
+
+**Requirements:** None — pure knowledge plugin, no API keys or dependencies.
 
 ---
 
