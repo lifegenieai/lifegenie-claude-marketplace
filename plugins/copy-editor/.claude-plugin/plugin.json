@@ -1,7 +1,7 @@
 {
   "name": "copy-editor",
   "description": "Stylometric document transformer — applies target writing styles to content while preserving factual accuracy",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": {
     "name": "Sapient Technology Group"
   },

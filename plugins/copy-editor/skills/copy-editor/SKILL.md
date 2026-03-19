@@ -11,7 +11,7 @@ description: >-
   generates new text, edits and rewrites existing copy, transforms voice and
   style, and proofreads for grammar, clarity, and tone — all while guarding
   against detectable AI writing patterns.
-version: 2.0.0
+version: 2.1.0
 allowed-tools:
   - Read
   - Write
@@ -120,6 +120,13 @@ The workflow adapts to the operating mode. All modes share Phase 1 (when a style
 is provided), Phase 4 (narrative direction), Phase 5 (quality gates), and
 Phase 6 (output).
 
+### Phase 0: Anti-Pattern Loading (ALL MODES — MANDATORY)
+
+Before any other work, Read `references/ai-anti-patterns.md` in full. Internalize
+all 18 patterns. These are hard constraints on ALL output — composition must
+actively avoid them, not just scan for them afterward. This step is not optional
+and applies to every mode including Proofread.
+
 ### Phase 1: Style Absorption
 
 _Applies to: Transform, Rewrite, Generate. Optional for Edit. Skipped for
@@ -187,6 +194,12 @@ Preserve throughout (all modes):
 - Core argumentative structure and logical flow
 - Proper nouns, citations, and attributions
 - Technical terminology accuracy
+- **AI anti-pattern avoidance** — Actively avoid all 18 patterns from
+  `references/ai-anti-patterns.md` during composition. Do not generate text that
+  will need to be caught later. Specific vigilance for the most common offenders:
+  no rhetorical contrastive negation (#1), no self-answering fragment questions
+  (#6), no AI vocabulary contamination (#12), no copula avoidance (#13), no low
+  burstiness (#14), no fabricated experience (#15)
 
 ### Phase 4: Narrative Direction (if provided)
 
@@ -200,11 +213,40 @@ Apply any additional instructions from argument 4+:
 
 ### Phase 5: Quality Gates
 
-Run the quality checks defined in `references/transformation-methodology.md`
-(checks #1-#9). Every mode runs all applicable checks. In particular:
+Run the quality checks defined in `references/transformation-methodology.md`.
+Every mode runs all applicable checks. The anti-pattern enforcement gate runs
+FIRST and is the most critical.
 
-- **#7 AI anti-pattern scan** — Scan output against
-  `references/ai-anti-patterns.md`. Rewrite any violations. Zero tolerance.
+- **#1 AI Anti-Pattern Enforcement (MANDATORY — most critical gate)**
+
+  This is not a cursory scan. Execute the following protocol:
+
+  a. **Re-read** `references/ai-anti-patterns.md` in full — do not rely on
+     earlier context. The file must be fresh in working memory.
+  b. **Per-pattern sweep** — Check EACH of the 18 patterns individually against
+     the full output. For each pattern, either confirm "clean" or quote the
+     violating passage and rewrite it inline.
+  c. **Vocabulary scan** — Search output for every word on the AI Vocabulary
+     Watchlist (pattern #12) and every copula evasion (pattern #13). One flagged
+     word in a long document is acceptable. Two or more in the same section is a
+     contamination event requiring rewrite.
+  d. **Burstiness check** — Verify sentence length variance across 3+
+     consecutive paragraphs. If all sentences within a paragraph fall within 5
+     words of each other in length, rewrite for rhythm variation.
+  e. **Re-scan after rewrites** — Any passage rewritten in steps b-d must be
+     re-checked against all 18 patterns. Rewrites frequently introduce new
+     violations (e.g., fixing a self-answering question by introducing copula
+     avoidance).
+  f. **Report** — In Phase 6 output summary, list the count of violations
+     caught per pattern category.
+
+- **#2 Factual integrity** — All data points, proper nouns, citations preserved
+- **#3 Logical coherence** — Argument still follows, no non-sequiturs introduced
+- **#4 Voice consistency** — Verify per the checklist in
+  `references/transformation-methodology.md`
+- **#5 No over-correction** — Dimensions already aligned remain natural
+- **#6 No artifacts** — No remnant phrases from source voice that clash
+- **#7 Readability** — Text flows naturally, no awkward constructions
 - **#8 Narrative density check** — Verify no paragraph has been flattened into
   a summary that could be replaced by bullet points without losing anything.
 - **#9 Tightening pass** — Sentence-by-sentence check for filler, redundancy,

@@ -151,18 +151,36 @@ When target's argumentation pattern differs from source:
 ## Quality Checks
 
 After completing any operation (transform, rewrite, edit, generate, or
-proofread), verify all applicable checks. Checks #1-#6 are inherited from the
-original methodology. Checks #7-#9 are mandatory for all modes that produce or
-modify prose.
+proofread), verify all applicable checks. The anti-pattern enforcement gate runs
+FIRST — it is the most critical check and all subsequent checks validate text
+that has already passed it.
 
-1. **Factual integrity** — All data points, proper nouns, citations preserved
-2. **Logical coherence** — Argument still follows, no non-sequiturs introduced
-3. **Voice consistency** — Verify using the checklist below
-4. **No over-correction** — Dimensions already aligned should remain natural
-5. **No artifacts** — No remnant phrases from source voice that clash
-6. **Readability** — Text flows naturally, no awkward constructions
-7. **AI anti-pattern scan** — Scan output against `ai-anti-patterns.md`.
-   Rewrite any violations. Zero tolerance. All 18 patterns must be checked.
+1. **AI Anti-Pattern Enforcement (MANDATORY — most critical gate)** — This is
+   not a cursory scan. Execute the following protocol:
+   a. **Re-read** `ai-anti-patterns.md` in full — do not rely on earlier context.
+      The file must be fresh in working memory.
+   b. **Per-pattern sweep** — Check EACH of the 18 patterns individually against
+      the full output. For each pattern, either confirm "clean" or quote the
+      violating passage and rewrite it inline.
+   c. **Vocabulary scan** — Search output for every word on the AI Vocabulary
+      Watchlist (pattern #12) and every copula evasion (pattern #13). One flagged
+      word in a long document is acceptable. Two or more in the same section is a
+      contamination event requiring rewrite.
+   d. **Burstiness check** — Verify sentence length variance across 3+
+      consecutive paragraphs. If all sentences within a paragraph fall within 5
+      words of each other in length, rewrite for rhythm variation.
+   e. **Re-scan after rewrites** — Any passage rewritten in steps b-d must be
+      re-checked against all 18 patterns. Rewrites frequently introduce new
+      violations (e.g., fixing a self-answering question by introducing copula
+      avoidance).
+   f. **Report** — In the output summary, list the count of violations caught
+      per pattern category.
+2. **Factual integrity** — All data points, proper nouns, citations preserved
+3. **Logical coherence** — Argument still follows, no non-sequiturs introduced
+4. **Voice consistency** — Verify using the checklist below
+5. **No over-correction** — Dimensions already aligned should remain natural
+6. **No artifacts** — No remnant phrases from source voice that clash
+7. **Readability** — Text flows naturally, no awkward constructions
 8. **Narrative density check** — For each paragraph, apply this test: "Could I
    rewrite this paragraph as three bullet points in a status update and lose
    nothing?" If yes, it's been flattened into a summary -- restore specificity.
@@ -188,7 +206,7 @@ modify prose.
    - The goal is to tighten without losing substance. Lean prose that earns
      every sentence is better than padded prose that hits a word count.
 
-### Voice Consistency Checklist (Check #3 Expanded)
+### Voice Consistency Checklist (Check #4 Expanded)
 
 Before finalizing output, verify:
 
