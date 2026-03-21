@@ -205,6 +205,40 @@ that has already passed it.
      "it should be noted that" -- delete.
    - The goal is to tighten without losing substance. Lean prose that earns
      every sentence is better than padded prose that hits a word count.
+10. **Structural metrics verification** (Transform and Rewrite modes only) —
+    After completing the transformation, measure the output's actual structural
+    metrics and compare against the style profile's quantitative targets:
+    - **Average sentence length** — Count words per sentence across the full
+      output. Compare to the profile's `sentence.avg_length`.
+    - **Sentence length range** — Find the shortest and longest sentences.
+      Compare to the profile's `sentence.length_range`.
+    - **Fragment frequency** — Count intentional fragments as a percentage of
+      total sentences. Compare to the profile's `sentence.fragment_frequency`.
+    - **Paragraph sentence count** — Average sentences per paragraph. Compare
+      to `rhythm.paragraph_avg_sentences`.
+    If any metric diverges from the profile's target by more than 30%, the
+    transformation is cosmetic — word swaps on the original skeleton. Return to
+    Phase 1: re-read the style profile (especially the test passage if one
+    exists), then redo from Phase 3. This is the gate that catches "same
+    skeleton, different shirt" transformations.
+11. **Before/after diff check** (Transform and Rewrite modes only) — Select 3
+    representative paragraphs from the source document and their transformed
+    equivalents. For each pair, measure:
+    - Sentence count
+    - Average sentence length (words)
+    - Longest sentence (words)
+    - Shortest sentence (words)
+    If before and after metrics are within 10% of each other on ALL four
+    measures for ALL three paragraphs, the transformation was surface-level —
+    vocabulary and punctuation changes without structural reshaping. This is a
+    hard fail. Return to Phase 3 and restructure the prose, not just the words.
+    Common triggers for this failure:
+    - Expanding or contracting contractions without breaking sentences
+    - Adding interjections to existing sentence structures instead of
+      rebuilding them
+    - Swapping vocabulary register while preserving clause nesting
+    These are edits, not transformations. The voice lives in the sentence
+    architecture, not the word choice.
 
 ### Voice Consistency Checklist (Check #4 Expanded)
 

@@ -141,6 +141,16 @@ Proofread._
    using the framework dimensions, filling reasonable defaults for unspecified
    dimensions based on the described register
 5. Do not output the profile unless explicitly requested
+6. **Test passage calibration** (when the style profile includes a test
+   passage): Read the test passage — it IS the voice rendered in prose. Before
+   touching the source draft, write 3 sentences about a mundane object (a
+   chair, a cup, a door) in the target voice. Compare your sentences against
+   the test passage for: sentence length, clause structure, contraction usage,
+   and rhythm. If they diverge structurally (wrong avg sentence length, wrong
+   clause complexity, contractions where the test passage has none or vice
+   versa), re-read the profile and try again. Do not proceed to Phase 2 until
+   your calibration sentences match the test passage's structural fingerprint.
+   This step catches voice misinterpretation before it contaminates the draft.
 
 ### Phase 2: Source Analysis
 
@@ -251,6 +261,17 @@ FIRST and is the most critical.
   a summary that could be replaced by bullet points without losing anything.
 - **#9 Tightening pass** — Sentence-by-sentence check for filler, redundancy,
   bloated transitions, and hedging.
+- **#10 Structural metrics verification** (Transform and Rewrite modes) —
+  Measure the output's actual sentence metrics and compare against the style
+  profile's quantitative targets. If avg sentence length, sentence length range,
+  or fragment frequency diverge from the profile by more than 30%, the
+  transformation is cosmetic, not structural. Go back to Phase 1, re-read the
+  profile and test passage, and redo from Phase 3.
+- **#11 Before/after diff check** (Transform and Rewrite modes) — Select 3
+  representative paragraphs from the source and their transformed equivalents.
+  For each pair, count: sentences, avg sentence length, longest sentence,
+  shortest sentence. If before and after metrics are within 10% of each other
+  on all measures, the transformation was surface-level. Redo from Phase 3.
 
 ### Phase 6: Output
 
@@ -275,6 +296,7 @@ a new named style, create a style profile following
 | ------------------------ | --------------------------------------------------------------------------------- |
 | `john-roberts`           | Conversational inevitability — deceptively simple prose with premise-driven logic |
 | `narrative-technologist` | Warm, story-driven technical writing that leads with human experience             |
+| `walken`                 | Discovered cadence — plain, musical, staccato prose with unpredictable pauses     |
 
 Name matching is flexible: `john-roberts`, `John-Roberts`, `john roberts`, and
 `Roberts` all resolve to the same profile. When multiple profiles could match a
@@ -328,7 +350,7 @@ partial name, load the most specific match.
   building stylometric profiles (sentence patterns, lexical analysis, voice
   markers, rhetorical devices)
 - **`references/transformation-methodology.md`** — Methodology for applying
-  style transformations and quality gates (#1-#9) at every linguistic level
+  style transformations and quality gates (#1-#11) at every linguistic level
 - **`references/ai-anti-patterns.md`** — 18 structural AI writing anti-patterns
   with symptoms, examples, and alternatives. Consulted during Phase 5 quality
   gates. Zero tolerance.

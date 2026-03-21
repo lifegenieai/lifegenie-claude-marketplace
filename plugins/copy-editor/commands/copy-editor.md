@@ -61,6 +61,7 @@ The style argument ($1) resolves in this order:
 | ------------------------ | --------------------------------------------------------------------------------- |
 | `john-roberts`           | Conversational inevitability — deceptively simple prose with premise-driven logic |
 | `narrative-technologist` | Warm, story-driven technical writing that leads with human experience             |
+| `walken`                 | Discovered cadence — plain, musical, staccato prose with unpredictable pauses     |
 
 ## Examples
 
