@@ -1,48 +1,47 @@
 ---
 name: agent-validation
 description: "This skill should be used when the user asks to validate, lint, or check Claude Code agent files, review agent frontmatter fields, or verify agent configurations against the official spec. Trigger phrases: 'validate my agents', 'check this agent file', 'lint agent files', 'review agent configs'."
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Agent Validation Methodology
 
-**IMPORTANT**: Always load the `plugin-dev:agent-development` skill FIRST to get the current spec. The rules below encode severity classifications and additional checks — the agent-development skill is the source of truth for what fields exist and their valid values.
+## Source of Truth
 
-## Frontmatter Field Checks
+The official spec lives at **https://code.claude.com/docs/en/sub-agents**. Before validating format-specific rules (valid field names, allowed values, required vs optional), fetch the current spec using Context7:
 
-Validate each field's constraints and allowed values against the `agent-development` skill spec. Apply these severities:
+```
+Context7 library ID: /llmstxt/code_claude_llms_txt
+Query: "subagent frontmatter supported fields required optional valid values"
+```
 
-| Field         | Severity if missing/invalid                          |
-| ------------- | ---------------------------------------------------- |
-| `name`        | CRITICAL                                             |
-| `description` | CRITICAL (missing) / IMPORTANT (no examples)         |
-| `model`       | CRITICAL                                             |
-| `color`       | IMPORTANT                                            |
-| `tools`       | CRITICAL (if present but wrong type, e.g. not array) |
+If Context7 is unavailable, use WebFetch on `https://code.claude.com/docs/en/sub-agents` and extract the "Supported frontmatter fields" table.
 
-## System Prompt Checks
+**Do not validate from training data or cached knowledge.** The spec changes frequently.
 
-| Check              | Rule                                                    | Severity     |
-| ------------------ | ------------------------------------------------------- | ------------ |
-| Length              | 20-10,000 characters                                    | IMPORTANT    |
-| Voice               | Should use 2nd person ("You are...", "Your role is...") | NICE-TO-HAVE |
+## Spec Violations (from official docs)
 
-## Additional Checks
+These checks enforce documented requirements. Severity: **CRITICAL**.
 
-### Cost Flags
+| Check                    | Rule                                                        |
+| ------------------------ | ----------------------------------------------------------- |
+| YAML parses              | Frontmatter between `---` delimiters must be valid YAML     |
+| `name` present           | Required. Lowercase letters, numbers, hyphens only          |
+| `description` present    | Required. Tells Claude when to delegate to this agent       |
+| Duplicate names          | No two agent files may define the same `name` value         |
+| `tools` type (if set)    | Must be a comma-separated string or YAML list, not a quoted comma-string like `"Read,Write"` |
 
-- If `model: opus` — flag for cost justification. This is not an error, but should be noted so the user can confirm intent. Severity: NICE-TO-HAVE.
+## Recommendations (engineering judgment)
 
-### Structural Issues
+These are not documented requirements but improve agent quality. Severity: **IMPORTANT** unless noted.
 
-- **Duplicate agent names**: If multiple files define the same `name` field value, flag all duplicates. Severity: CRITICAL.
-- **`tools` as comma-string**: Check if `tools` is a single string with commas (e.g., `tools: "Read,Write,Edit"`) instead of a YAML array. Severity: CRITICAL.
-- **Invalid color values**: Flag values not in the allowed set defined by the `agent-development` skill spec. Severity: IMPORTANT.
-
-### Description Quality
-
-- **`<example>` blocks in system prompt body**: If the markdown body contains `<example>` blocks that look like they belong in the `description` field (i.e., they show triggering patterns like "user: ..." / "assistant: ..."), flag them. Severity: IMPORTANT.
-- **No `<example>` blocks anywhere**: If neither the description nor body contains example triggering patterns, flag. Severity: IMPORTANT.
+| Check                      | Rule                                                              | Severity     |
+| -------------------------- | ----------------------------------------------------------------- | ------------ |
+| Description length         | Descriptions over 200 chars may waste context on every message    | IMPORTANT    |
+| Description with examples  | Official examples use 1-2 sentences, not `<example>` blocks       | IMPORTANT    |
+| System prompt exists       | Body after frontmatter should contain a system prompt             | IMPORTANT    |
+| System prompt voice        | Should use 2nd person ("You are...", "Your role is...")           | NICE-TO-HAVE |
+| `model: opus` cost flag    | Flag for cost awareness — not an error, just a heads-up           | NICE-TO-HAVE |
 
 ## Validation Procedure
 
@@ -50,9 +49,10 @@ For each agent file:
 
 1. Parse YAML frontmatter (between `---` delimiters)
 2. Parse markdown body (everything after second `---`)
-3. Run each check from the tables above
+3. Run spec violation checks first, then recommendation checks
 4. Record findings as structured data:
    - `severity`: CRITICAL | IMPORTANT | NICE-TO-HAVE
+   - `source`: "official docs" or "recommendation"
    - `file`: filename
    - `field`: which field or section
    - `issue`: what's wrong
@@ -61,6 +61,6 @@ For each agent file:
 
 ## Severity Definitions
 
-- **CRITICAL**: Agent will not function correctly or will fail to register. Must fix.
-- **IMPORTANT**: Agent will function but may have degraded behavior (poor triggering, missing metadata). Should fix.
+- **CRITICAL**: Agent will not function correctly or will fail to register. Must fix. Source: official docs.
+- **IMPORTANT**: Agent will function but may have suboptimal behavior or waste context. Should fix. Source: engineering judgment.
 - **NICE-TO-HAVE**: Cosmetic or optimization suggestions. Fix at user's discretion.
