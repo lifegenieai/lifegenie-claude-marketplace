@@ -119,7 +119,7 @@
     {
       "name": "search-hub",
       "description": "Multi-source search dispatcher that fans out to Tavily, Perplexity, Gemini, and Exa in parallel for cross-provider verification",
-      "version": "2.0.0",
+      "version": "3.0.0",
       "author": {
         "name": "Erik B"
       },

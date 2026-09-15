@@ -5,20 +5,22 @@
  * Usage: bun exa.ts "<query>" [options]
  *
  * Options:
- *   --type fast|auto|deep|deep-reasoning  Search type (default: auto)
+ *   --type instant|fast|auto|deep-lite|deep|deep-reasoning  Search type (default: auto)
  *   --max-results N                       Number of results (default: 5)
- *   --category news|people|company|"research paper"|tweet  Category filter (optional)
- *   --content text|highlights             Content type (default: text, max 20000 chars)
+ *   --category news|people|company|"research paper"|"personal site"|"financial report"  Category filter
+ *   --content text|highlights             Content type (default: text)
+ *   --max-chars N                         Max characters of content per result (default: 4000)
+ *   --summary                             Add provider-side query-aware summary per result (+$0.001/page)
  *   --domain-include d1,d2               Include only these domains (comma-separated)
  *   --domain-exclude d1,d2               Exclude these domains (comma-separated)
  *   --answer                              Use /answer endpoint instead of /search
  *   --format json|text                    Output format (default: json)
  *   --help                                Show this help message
  *
- * Cost: ~$0.005 per query
+ * Cost: ~$0.005-0.007 per query (actual reported in metadata.cost_actual)
  */
 
-import { getKey } from "./_env";
+import { getKey, missingKeyMessage } from "./_env";
 import { formatOutput, formatError } from "./_format";
 import type { SearchResult, ResultItem, OutputFormat } from "./_types";
 
@@ -26,9 +28,21 @@ const PROVIDER = "exa";
 const SEARCH_URL = "https://api.exa.ai/search";
 const ANSWER_URL = "https://api.exa.ai/answer";
 
-type SearchType = "fast" | "auto" | "deep" | "deep-reasoning";
+type SearchType =
+  | "instant"
+  | "fast"
+  | "auto"
+  | "deep-lite"
+  | "deep"
+  | "deep-reasoning";
 type ContentType = "text" | "highlights";
-type Category = "news" | "people" | "company" | "research paper" | "tweet";
+type Category =
+  | "news"
+  | "people"
+  | "company"
+  | "research paper"
+  | "personal site"
+  | "financial report";
 
 interface ParsedArgs {
   query: string;
@@ -36,6 +50,8 @@ interface ParsedArgs {
   maxResults: number;
   category?: Category;
   content: ContentType;
+  maxChars?: number;
+  summary: boolean;
   domainInclude?: string[];
   domainExclude?: string[];
   answer: boolean;
@@ -48,11 +64,14 @@ function showHelp(): void {
 Usage: bun exa.ts "<query>" [options]
 
 Options:
-  --type fast|auto|deep|deep-reasoning  Search type (default: auto)
+  --type <type>                         Search type (default: auto)
+           instant|fast|auto|deep-lite|deep|deep-reasoning
   --max-results N                       Number of results (default: 5)
   --category <cat>                      Category filter (optional)
-           news|people|company|"research paper"|tweet
+           news|people|company|"research paper"|"personal site"|"financial report"
   --content text|highlights             Content type (default: text)
+  --max-chars N                         Max content chars per result (default: 4000)
+  --summary                             Add query-aware summary per result (+$0.001/page)
   --domain-include d1,d2               Include only these domains
   --domain-exclude d1,d2               Exclude these domains
   --answer                              Use /answer endpoint (Q&A with citations)
@@ -68,16 +87,32 @@ Examples:
   bun exa.ts "tech news" --content highlights --format text
 
 Search Types:
-  fast            Fastest, basic depth
+  instant         Cheapest, lowest latency
+  fast            Fast, basic depth
   auto            Balanced relevance & speed (default)
+  deep-lite       Lighter research pass
   deep            Thorough research results
   deep-reasoning  Complex multi-step reasoning
 
-Cost: ~$0.005 per query`);
+Cost: ~$0.005-0.007 per query (actual reported in metadata.cost_actual)`);
 }
 
-const VALID_TYPES = new Set(["fast", "auto", "deep", "deep-reasoning"]);
-const VALID_CATEGORIES = new Set(["news", "people", "company", "research paper", "tweet"]);
+const VALID_TYPES = new Set([
+  "instant",
+  "fast",
+  "auto",
+  "deep-lite",
+  "deep",
+  "deep-reasoning",
+]);
+const VALID_CATEGORIES = new Set([
+  "news",
+  "people",
+  "company",
+  "research paper",
+  "personal site",
+  "financial report",
+]);
 
 function parseArgs(args: string[]): ParsedArgs {
   let query = "";
@@ -85,6 +120,8 @@ function parseArgs(args: string[]): ParsedArgs {
   let maxResults = 5;
   let category: Category | undefined;
   let content: ContentType = "text";
+  let maxChars: number | undefined;
+  let summary = false;
   let domainInclude: string[] | undefined;
   let domainExclude: string[] | undefined;
   let answer = false;
@@ -97,40 +134,84 @@ function parseArgs(args: string[]): ParsedArgs {
       const val = args[++i];
       if (VALID_TYPES.has(val)) type = val as SearchType;
       else {
-        console.error(formatError(PROVIDER, `Invalid type: ${val}. Use fast|auto|deep|deep-reasoning.`));
+        console.error(
+          formatError(
+            PROVIDER,
+            `Invalid type: ${val}. Use instant|fast|auto|deep-lite|deep|deep-reasoning.`,
+          ),
+        );
         process.exit(1);
       }
     } else if (arg === "--max-results" && i + 1 < args.length) {
       maxResults = parseInt(args[++i], 10);
       if (isNaN(maxResults) || maxResults < 1) {
-        console.error(formatError(PROVIDER, "Invalid max-results: must be a positive integer."));
+        console.error(
+          formatError(
+            PROVIDER,
+            "Invalid max-results: must be a positive integer.",
+          ),
+        );
         process.exit(1);
       }
     } else if (arg === "--category" && i + 1 < args.length) {
       const val = args[++i];
       if (VALID_CATEGORIES.has(val)) category = val as Category;
       else {
-        console.error(formatError(PROVIDER, `Invalid category: ${val}. Use news|people|company|"research paper"|tweet.`));
+        console.error(
+          formatError(
+            PROVIDER,
+            `Invalid category: ${val}. Use news|people|company|"research paper"|"personal site"|"financial report".`,
+          ),
+        );
         process.exit(1);
       }
     } else if (arg === "--content" && i + 1 < args.length) {
       const val = args[++i];
       if (val === "text" || val === "highlights") content = val;
       else {
-        console.error(formatError(PROVIDER, `Invalid content: ${val}. Use 'text' or 'highlights'.`));
+        console.error(
+          formatError(
+            PROVIDER,
+            `Invalid content: ${val}. Use 'text' or 'highlights'.`,
+          ),
+        );
+        process.exit(1);
+      }
+    } else if (arg === "--max-chars" && i + 1 < args.length) {
+      maxChars = parseInt(args[++i], 10);
+      if (isNaN(maxChars) || maxChars < 1) {
+        console.error(
+          formatError(
+            PROVIDER,
+            "Invalid max-chars: must be a positive integer.",
+          ),
+        );
         process.exit(1);
       }
     } else if (arg === "--domain-include" && i + 1 < args.length) {
-      domainInclude = args[++i].split(",").map((d) => d.trim()).filter(Boolean);
+      domainInclude = args[++i]
+        .split(",")
+        .map((d) => d.trim())
+        .filter(Boolean);
     } else if (arg === "--domain-exclude" && i + 1 < args.length) {
-      domainExclude = args[++i].split(",").map((d) => d.trim()).filter(Boolean);
+      domainExclude = args[++i]
+        .split(",")
+        .map((d) => d.trim())
+        .filter(Boolean);
     } else if (arg === "--answer") {
       answer = true;
+    } else if (arg === "--summary") {
+      summary = true;
     } else if (arg === "--format" && i + 1 < args.length) {
       const val = args[++i];
       if (val === "json" || val === "text") format = val;
       else {
-        console.error(formatError(PROVIDER, `Invalid format: ${val}. Use 'json' or 'text'.`));
+        console.error(
+          formatError(
+            PROVIDER,
+            `Invalid format: ${val}. Use 'json' or 'text'.`,
+          ),
+        );
         process.exit(1);
       }
     } else if (arg === "--help") {
@@ -142,13 +223,27 @@ function parseArgs(args: string[]): ParsedArgs {
     i++;
   }
 
-  return { query, type, maxResults, category, content, domainInclude, domainExclude, answer, format };
+  return {
+    query,
+    type,
+    maxResults,
+    category,
+    content,
+    maxChars,
+    summary,
+    domainInclude,
+    domainExclude,
+    answer,
+    format,
+  };
 }
 
-async function searchExa(opts: Omit<ParsedArgs, "format">): Promise<SearchResult> {
+async function searchExa(
+  opts: Omit<ParsedArgs, "format">,
+): Promise<SearchResult> {
   const apiKey = getKey("exa");
   if (!apiKey) {
-    throw new Error("EXA_API_KEY not set. Add it to ~/.claude/.env");
+    throw new Error(missingKeyMessage("exa"));
   }
 
   const start = performance.now();
@@ -157,10 +252,18 @@ async function searchExa(opts: Omit<ParsedArgs, "format">): Promise<SearchResult
     return await answerQuery(apiKey, opts.query, start);
   }
 
-  const maxChars = opts.content === "highlights" ? 4000 : 20000;
-  const contents: Record<string, any> = {
-    [opts.content]: { max_characters: maxChars },
-  };
+  const maxChars = opts.maxChars ?? 4000;
+  const contents: Record<string, any> = {};
+  if (opts.content === "highlights") {
+    // Query-aware extraction: verbatim excerpts most relevant to the query
+    contents.highlights = { max_characters: maxChars, query: opts.query };
+  } else {
+    contents.text = { max_characters: maxChars };
+  }
+  if (opts.summary) {
+    // Provider-side query-aware summary (+$0.001/page); supplements highlights
+    contents.summary = { query: opts.query };
+  }
 
   const body: Record<string, any> = {
     query: opts.query,
@@ -195,9 +298,12 @@ async function searchExa(opts: Omit<ParsedArgs, "format">): Promise<SearchResult
     url: r.url || "",
     snippet: r.highlights?.join(" ") || r.summary || "",
     content: r.text || undefined,
+    summary: r.summary || undefined,
     score: r.score || undefined,
     published_date: r.publishedDate || undefined,
   }));
+
+  const costTotal = data.costDollars?.total;
 
   return {
     provider: PROVIDER,
@@ -206,13 +312,18 @@ async function searchExa(opts: Omit<ParsedArgs, "format">): Promise<SearchResult
     metadata: {
       provider: PROVIDER,
       cost_estimate: "~$0.005",
+      cost_actual: typeof costTotal === "number" ? `$${costTotal}` : undefined,
       duration_ms: duration,
       result_count: results.length,
     },
   };
 }
 
-async function answerQuery(apiKey: string, query: string, start: number): Promise<SearchResult> {
+async function answerQuery(
+  apiKey: string,
+  query: string,
+  start: number,
+): Promise<SearchResult> {
   const response = await fetch(ANSWER_URL, {
     method: "POST",
     headers: {
@@ -221,7 +332,8 @@ async function answerQuery(apiKey: string, query: string, start: number): Promis
     },
     body: JSON.stringify({
       query,
-      text: true,
+      // Citations still carry title+URL; full page text is dead weight
+      text: false,
     }),
   });
 
@@ -242,6 +354,7 @@ async function answerQuery(apiKey: string, query: string, start: number): Promis
   }));
 
   const citations = results.map((r) => r.url).filter(Boolean);
+  const costTotal = data.costDollars?.total;
 
   return {
     provider: PROVIDER,
@@ -252,6 +365,7 @@ async function answerQuery(apiKey: string, query: string, start: number): Promis
     metadata: {
       provider: PROVIDER,
       cost_estimate: "~$0.005",
+      cost_actual: typeof costTotal === "number" ? `$${costTotal}` : undefined,
       duration_ms: duration,
       result_count: results.length,
     },
@@ -270,7 +384,9 @@ async function main() {
   const { format, ...searchOpts } = parseArgs(args);
 
   if (!searchOpts.query) {
-    console.error(formatError(PROVIDER, 'No query provided. Usage: bun exa.ts "<query>"'));
+    console.error(
+      formatError(PROVIDER, 'No query provided. Usage: bun exa.ts "<query>"'),
+    );
     process.exit(1);
   }
 
